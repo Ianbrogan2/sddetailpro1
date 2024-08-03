@@ -10,7 +10,7 @@
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
 
       // Your web app's Firebase configuration
       const firebaseConfig = {
@@ -25,10 +25,9 @@
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app); // Initialize Firebase Auth
+      const auth = getAuth(app);
 
-      // Sign-up function
-      window.signUp = function() {
+      function signUp() {
         const email = document.getElementById("email-signup").value;
         const password = document.getElementById("password-signup").value;
 
@@ -37,7 +36,7 @@
             // Signed up
             console.log("User signed up:", userCredential.user);
             alert("Sign-up successful!");
-            window.location.href = "index.html"; // Redirect after sign-up
+            updateUI();
           })
           .catch((error) => {
             console.error("Error signing up:", error.message);
@@ -45,8 +44,7 @@
           });
       }
 
-      // Sign-in function
-      window.signIn = function() {
+      function signIn() {
         const email = document.getElementById("email-signin").value;
         const password = document.getElementById("password-signin").value;
 
@@ -55,13 +53,45 @@
             // Signed in
             console.log("User signed in:", userCredential.user);
             alert("Sign-in successful!");
-            window.location.href = "index.html"; // Redirect after sign-in
+            updateUI();
           })
           .catch((error) => {
             console.error("Error signing in:", error.message);
             alert("Error signing in: " + error.message);
           });
       }
+
+      function signOutUser() {
+        signOut(auth).then(() => {
+          console.log("User signed out");
+          alert("Sign-out successful!");
+          updateUI();
+        }).catch((error) => {
+          console.error("Error signing out:", error.message);
+          alert("Error signing out: " + error.message);
+        });
+      }
+
+      function updateUI() {
+        const user = auth.currentUser;
+        const signUpSection = document.getElementById("sign-up-section");
+        const accountSection = document.getElementById("account-section");
+
+        if (user) {
+          signUpSection.style.display = "none";
+          accountSection.style.display = "block";
+          document.getElementById("account-email").textContent = "Welcome, " + user.email;
+        } else {
+          signUpSection.style.display = "block";
+          accountSection.style.display = "none";
+        }
+      }
+
+      // Listen for auth state changes
+      onAuthStateChanged(auth, (user) => {
+        updateUI();
+      });
+
     </script>
     
     <style>
@@ -121,6 +151,10 @@
             margin-bottom: 10px;
             color: #333;
         }
+
+        #account-section {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -128,19 +162,27 @@
         <h1>Log In / Sign Up</h1>
         
         <!-- Sign Up Form -->
-        <div class="form-group">
-            <h2>Sign Up</h2>
-            <input type="email" id="email-signup" placeholder="Email" required />
-            <input type="password" id="password-signup" placeholder="Password" required />
-            <button onclick="signUp()">Sign Up</button>
+        <div id="sign-up-section">
+            <div class="form-group">
+                <h2>Sign Up</h2>
+                <input type="email" id="email-signup" placeholder="Email" required />
+                <input type="password" id="password-signup" placeholder="Password" required />
+                <button onclick="signUp()">Sign Up</button>
+            </div>
+            
+            <!-- Sign In Form -->
+            <div class="form-group">
+                <h2>Sign In</h2>
+                <input type="email" id="email-signin" placeholder="Email" required />
+                <input type="password" id="password-signin" placeholder="Password" required />
+                <button onclick="signIn()">Sign In</button>
+            </div>
         </div>
-        
-        <!-- Sign In Form -->
-        <div class="form-group">
-            <h2>Sign In</h2>
-            <input type="email" id="email-signin" placeholder="Email" required />
-            <input type="password" id="password-signin" placeholder="Password" required />
-            <button onclick="signIn()">Sign In</button>
+
+        <!-- Account Section -->
+        <div id="account-section">
+            <h2 id="account-email">Welcome</h2>
+            <button onclick="signOutUser()">Sign Out</button>
         </div>
     </div>
 </body>
