@@ -1,1 +1,26 @@
-
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>User Profile | SD Detail Pro</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="module" src="profile.js"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <h1>User Profile</h1>
+        <div class="form-group">
+            <h2>Profile Information</h2>
+            <p>Email: <span id="user-email"></span></p>
+            <button onclick="signOut()">Sign Out</button>
+        </div>
+        <div class="form-group">
+            <h2>Update Profile</h2>
+            <input type="email" id="new-email" placeholder="New Email" />
+            <input type="password" id="new-password" placeholder="New Password" />
+            <button onclick="updateProfile()">Update Profile</button>
+        </div>
+    </div>
+</body>
+</html>
