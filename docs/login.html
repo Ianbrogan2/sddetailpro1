@@ -27,24 +27,28 @@
         };
 
         // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const analytics = firebase.getAnalytics(app);
+        firebase.initializeApp(firebaseConfig);
+        const analytics = firebase.analytics();
         const auth = firebase.auth();
 
         // Sign-Up Logic
         function signUp() {
             const email = document.getElementById('signUpEmail').value;
             const password = document.getElementById('signUpPassword').value;
+            console.log('Signing up with email:', email); // Debug log
+
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Signed up
                     const user = userCredential.user;
                     console.log('User signed up:', user);
+                    alert('Sign-up successful!'); // Inform the user
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.error('Error signing up:', errorCode, errorMessage);
+                    alert('Error signing up: ' + errorMessage); // Inform the user
                 });
         }
 
@@ -52,16 +56,20 @@
         function logIn() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
+            console.log('Logging in with email:', email); // Debug log
+
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Logged in
                     const user = userCredential.user;
                     console.log('User logged in:', user);
+                    alert('Log-in successful!'); // Inform the user
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.error('Error logging in:', errorCode, errorMessage);
+                    alert('Error logging in: ' + errorMessage); // Inform the user
                 });
         }
     </script>
