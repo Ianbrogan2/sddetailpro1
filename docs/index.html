@@ -5,71 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
-
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js"></script>
-
-    <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
-
-    <!-- Firebase Configuration -->
-    <script>
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
-            authDomain: "sd-detail-pro.firebaseapp.com",
-            projectId: "sd-detail-pro",
-            storageBucket: "sd-detail-pro.appspot.com",
-            messagingSenderId: "950327198258",
-            appId: "1:950327198258:web:1c5c749232c07783fef22b",
-            measurementId: "G-DQ1MX7K35F"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-
-        // Sign-Up Logic
-        function signUp() {
-            const email = document.getElementById('signUpEmail').value;
-            const password = document.getElementById('signUpPassword').value;
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed up
-                    const user = userCredential.user;
-                    console.log('User signed up:', user);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error('Error signing up:', errorCode, errorMessage);
-                });
-        }
-
-        // Login Logic
-        function logIn() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Logged in
-                    const user = userCredential.user;
-                    console.log('User logged in:', user);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error('Error logging in:', errorCode, errorMessage);
-                });
-        }
-    </script>
 </head>
 <body class="homepage is-preload">
     <div id="page-wrapper">
@@ -84,7 +19,7 @@
                     <li class="current"><a href="index.html">Home</a></li>
                     <li><a href="left-sidebar.html">Services</a></li>
                     <li><a href="right-sidebar.html">Contact Us</a></li>
-                    <li><a href="no-sidebar.html">Log in/ Sign up</a></li>
+                    <li><a href="login.html">Log in/ Sign up</a></li>
                 </ul>
             </nav>
 
@@ -225,36 +160,8 @@
                             <header>
                                 <h2>Our Mission</h2>
                             </header>
-                            <p>
-                                This is <strong>SD Detail Pro</strong>, a place where you can get quality car washing and detailing services. We are committed to providing the best service to our customers and ensuring your car looks its best.
-                            </p>
+                            <p>This is <strong>SD Detail Pro</strong>, a car washing and detailing business independently owned and operated by Alec Cardenas.</p>
                         </section>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-
-                        <!-- Sign Up / Log In -->
-                        <section>
-                            <header>
-                                <h2>Log in / Sign up</h2>
-                            </header>
-                            <form id="signUpForm">
-                                <label for="signUpEmail">Email:</label>
-                                <input type="email" id="signUpEmail" required>
-                                <label for="signUpPassword">Password:</label>
-                                <input type="password" id="signUpPassword" required>
-                                <button type="button" onclick="signUp()">Sign Up</button>
-                            </form>
-                            <form id="loginForm">
-                                <label for="loginEmail">Email:</label>
-                                <input type="email" id="loginEmail" required>
-                                <label for="loginPassword">Password:</label>
-                                <input type="password" id="loginPassword" required>
-                                <button type="button" onclick="logIn()">Log In</button>
-                            </form>
-                        </section>
-
                     </div>
                 </div>
             </div>
