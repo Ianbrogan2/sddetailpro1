@@ -1,47 +1,60 @@
-import { getAuth, signOut, updateEmail, updatePassword } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js';
+import { getAuth, onAuthStateChanged, updateEmail, updatePassword, signOut } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js';
 
+// Initialize Firebase Auth
 const auth = getAuth();
 
 window.onload = () => {
-  const user = auth.currentUser;
-
-  if (user) {
-    document.getElementById('user-email').innerText = user.email;
-  } else {
-    window.location.href = 'login.html'; // Redirect to login if not authenticated
-  }
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Display current user email
+            document.getElementById('user-email').textContent = user.email;
+        } else {
+            // Redirect to login if not authenticated
+            window.location.href = 'login.html';
+        }
+    });
 };
 
 function updateProfile() {
-  const newEmail = document.getElementById('new-email').value;
-  const newPassword = document.getElementById('new-password').value;
-  const user = auth.currentUser;
+    const user = auth.currentUser;
+    const newEmail = document.getElementById('new-email').value;
+    const newPassword = document.getElementById('new-password').value;
 
-  if (user) {
-    if (newEmail) {
-      updateEmail(user, newEmail).then(() => {
-        alert('Email updated successfully!');
-      }).catch((error) => {
-        alert('Error updating email: ' + error.message);
-      });
+    if (user) {
+        const updates = [];
+
+        if (newEmail) {
+            updates.push(updateEmail(user, newEmail));
+        }
+
+        if (newPassword) {
+            updates.push(updatePassword(user, newPassword));
+        }
+
+        Promise.all(updates)
+            .then(() => {
+                alert('Profile updated successfully!');
+            })
+            .catch((error) => {
+                console.error('Error updating profile:', error.message);
+                alert('Error updating profile: ' + error.message);
+            });
     }
-    if (newPassword) {
-      updatePassword(user, newPassword).then(() => {
-        alert('Password updated successfully!');
-      }).catch((error) => {
-        alert('Error updating password: ' + error.message);
-      });
-    }
-  } else {
-    alert('No user is signed in.');
-  }
 }
 
 function signOut() {
-  signOut(auth).then(() => {
-    alert('Signed out successfully!');
-    window.location.href = 'login.html';
-  }).catch((error) => {
-    alert('Error signing out: ' + error.message);
-  });
+    signOut(auth)
+        .then(() => {
+            console.log('User signed out');
+            alert('Sign-out successful!');
+            window.location.href = 'login.html'; // Redirect to login after sign-out
+        })
+        .catch((error) => {
+            console.error('Error signing out:', error.message);
+            alert('Error signing out: ' + error.message);
+        });
 }
+
+// Expose functions globally
+window.updateProfile = updateProfile;
+window.signOut = signOut;
