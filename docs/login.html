@@ -27,13 +27,13 @@
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
 
+      // Sign Up Function
       function signUp() {
         const email = document.getElementById("email-signup").value;
         const password = document.getElementById("password-signup").value;
 
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // Signed up
             console.log("User signed up:", userCredential.user);
             alert("Sign-up successful!");
             updateUI();
@@ -44,13 +44,13 @@
           });
       }
 
+      // Sign In Function
       function signIn() {
         const email = document.getElementById("email-signin").value;
         const password = document.getElementById("password-signin").value;
 
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // Signed in
             console.log("User signed in:", userCredential.user);
             alert("Sign-in successful!");
             updateUI();
@@ -61,6 +61,7 @@
           });
       }
 
+      // Sign Out Function
       function signOutUser() {
         signOut(auth).then(() => {
           console.log("User signed out");
@@ -72,17 +73,21 @@
         });
       }
 
+      // Update UI based on authentication state
       function updateUI() {
         const user = auth.currentUser;
         const signUpSection = document.getElementById("sign-up-section");
+        const signInSection = document.getElementById("sign-in-section");
         const accountSection = document.getElementById("account-section");
 
         if (user) {
           signUpSection.style.display = "none";
+          signInSection.style.display = "none";
           accountSection.style.display = "block";
           document.getElementById("account-email").textContent = "Welcome, " + user.email;
         } else {
           signUpSection.style.display = "block";
+          signInSection.style.display = "block";
           accountSection.style.display = "none";
         }
       }
@@ -91,7 +96,6 @@
       onAuthStateChanged(auth, (user) => {
         updateUI();
       });
-
     </script>
     
     <style>
