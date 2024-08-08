@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -16,43 +17,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app); // Initialize Firebase Auth
+const db = getFirestore(app); // Initialize Firestore
 
-// Sign-up function
-function signUp() {
-  const email = document.getElementById("email-signup").value;
-  const password = document.getElementById("password-signup").value;
-
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up
-      console.log("User signed up:", userCredential.user);
-      alert("Sign-up successful!");
-      window.location.href = "index.html"; // Redirect after sign-up
-    })
-    .catch((error) => {
-      console.error("Error signing up:", error.message);
-      alert("Error signing up: " + error.message);
-    });
-}
-
-// Sign-in function
-function signIn() {
-  const email = document.getElementById("email-signin").value;
-  const password = document.getElementById("password-signin").value;
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      console.log("User signed in:", userCredential.user);
-      alert("Sign-in successful!");
-      window.location.href = "index.html"; // Redirect after sign-in
-    })
-    .catch((error) => {
-      console.error("Error signing in:", error.message);
-      alert("Error signing in: " + error.message);
-    });
-}
-
-// Expose functions globally
-window.signUp = signUp;
-window.signIn = signIn;
+// Expose Firestore and Auth globally
+window.auth = auth;
+window.db = db;
