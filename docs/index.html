@@ -22,6 +22,75 @@
             }
         });
     </script>
+    <style>
+        /* Additional Styles */
+        #booking-system {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #booking-system h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="date"], input[type="time"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #booking-system {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            button {
+                padding: 10px 15px;
+            }
+        }
+    </style>
 </head>
 <body class="homepage is-preload">
     <div id="page-wrapper">
@@ -165,36 +234,55 @@
         </section>
 
         <!-- Booking System -->
-        <section id="booking-system" class="container" style="display: none;">
+        <section id="booking-system" class="container">
             <h2>Manage Availability</h2>
             <form id="availability-form">
-                <label for="available-date">Available Date:</label>
-                <input type="date" id="available-date" required>
+                <div class="form-group">
+                    <label for="available-date">Available Date:</label>
+                    <input type="date" id="available-date" required>
+                </div>
                 
-                <label for="available-time">Available Time:</label>
-                <input type="time" id="available-time" required>
-                
-                <label for="service-type">Service Type:</label>
-                <input type="text" id="service-type" required>
-                
-                <button type="button" onclick="setAvailability()">Set Availability</button>
+                <div class="form-group">
+                    <label for="available-time">Available Time:</label>
+                    <input type="time" id="available-time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-type">Service Type:</label>
+                    <input type="text" id="service-type" placeholder="e.g., Basic Car Wash" required>
+                </div>
+
+                <button type="submit">Set Availability</button>
             </form>
 
-            <h2>Make a Booking</h2>
+            <h2>Book a Service</h2>
             <form id="booking-form">
-                <label for="booking-date">Date:</label>
-                <input type="date" id="booking-date" required>
-                
-                <label for="booking-time">Time:</label>
-                <input type="time" id="booking-time" required>
-                
-                <label for="booking-service">Service:</label>
-                <input type="text" id="booking-service" required>
-                
-                <label for="user-name">Your Name:</label>
-                <input type="text" id="user-name" required>
-                
-                <button type="button" onclick="makeBooking()">Book Now</button>
+                <div class="form-group">
+                    <label for="booking-date">Date:</label>
+                    <input type="date" id="booking-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="booking-time">Time:</label>
+                    <input type="time" id="booking-time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-name">Customer Name:</label>
+                    <input type="text" id="customer-name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-phone">Phone Number:</label>
+                    <input type="text" id="customer-phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service-type-booking">Service Type:</label>
+                    <input type="text" id="service-type-booking" placeholder="e.g., Full Car Detailing" required>
+                </div>
+
+                <button type="submit">Book Now</button>
             </form>
         </section>
 
@@ -203,12 +291,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <section>
-                            <header>
-                                <h2>Our Mission</h2>
-                            </header>
-                            <p>This is <strong>SD Detail Pro</strong>, a car washing and detailing business independently owned and operated by Alec Cardenas.</p>
-                        </section>
+                        <!-- Copyright -->
+                        <ul class="copyright">
+                            <li>&copy; SD Detail Pro. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
