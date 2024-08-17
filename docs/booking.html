@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Book a Service | SD Detail Pro</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+    <div id="page-wrapper">
+        <h1>Book a Service</h1>
+        
+        <!-- Section for Alec to input available dates and times -->
+        <div id="owner-section">
+            <h2>Set Availability</h2>
+            <input type="date" id="available-date" />
+            <input type="time" id="available-time" />
+            <select id="service-type">
+                <option value="basic-wash">Basic Wash</option>
+                <option value="full-detail">Full Detail</option>
+            </select>
+            <button onclick="setAvailability()">Set Availability</button>
+        </div>
+        
+        <!-- Section for customers to make a booking -->
+        <div id="customer-section">
+            <h2>Book Now</h2>
+            <select id="booking-date"></select>
+            <select id="booking-time"></select>
+            <select id="booking-service">
+                <option value="basic-wash">Basic Wash</option>
+                <option value="full-detail">Full Detail</option>
+            </select>
+            <button onclick="makeBooking()">Book Service</button>
+        </div>
+    </div>
+
+    <script src="booking.js"></script>
+</body>
+</html>
