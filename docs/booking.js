@@ -57,11 +57,9 @@ async function makeBooking() {
 document.addEventListener('DOMContentLoaded', async () => {
     const isAdmin = await checkAdmin();
     if (isAdmin) {
-        // Admin can manage availability; this functionality should be accessible in the admin panel
-        // Example: Toggle visibility of admin controls
-        document.getElementById('admin-controls').style.display = 'block'; // Show admin controls
+        document.getElementById('booking-system').style.display = 'block'; // Show the booking system
     } else {
-        document.getElementById('admin-controls').style.display = 'none'; // Hide if not admin
+        document.getElementById('booking-system').style.display = 'none'; // Hide if not admin
     }
 });
 
