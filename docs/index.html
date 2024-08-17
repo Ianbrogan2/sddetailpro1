@@ -9,6 +9,19 @@
     <script type="module" src="path/to/your/firebase-setup.js" defer></script>
     <!-- Import JavaScript for booking functionality -->
     <script type="module" src="path/to/your/bookings.js" defer></script>
+    <!-- Check if user is admin -->
+    <script type="module">
+        import { checkAdmin } from './path/to/your/firebase-setup.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAdmin = await checkAdmin();
+            if (isAdmin) {
+                document.getElementById('booking-system').style.display = 'block'; // Show booking management
+            } else {
+                document.getElementById('booking-system').style.display = 'none'; // Hide booking management
+            }
+        });
+    </script>
 </head>
 <body class="homepage is-preload">
     <div id="page-wrapper">
@@ -153,7 +166,7 @@
         </section>
 
         <!-- Booking System -->
-        <section id="booking-system" class="container">
+        <section id="booking-system" class="container" style="display: none;">
             <h2>Manage Availability</h2>
             <form id="availability-form">
                 <label for="available-date">Available Date:</label>
