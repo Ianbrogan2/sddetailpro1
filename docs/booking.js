@@ -27,3 +27,13 @@ function makeBooking() {
         alert("Please select both a date and a time.");
     }
 }
+import { checkAdmin } from './firebase-setup.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const isAdmin = await checkAdmin();
+    if (isAdmin) {
+        document.getElementById('booking-system').style.display = 'block'; // Show the booking system
+    } else {
+        document.getElementById('booking-system').style.display = 'none'; // Hide if not admin
+    }
+});
