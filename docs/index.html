@@ -5,6 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <!-- Import Firebase setup script -->
+    <script type="module" src="path/to/your/firebase-setup.js" defer></script>
+    <!-- Import JavaScript for booking functionality -->
+    <script type="module" src="path/to/your/bookings.js" defer></script>
 </head>
 <body class="homepage is-preload">
     <div id="page-wrapper">
@@ -19,7 +23,8 @@
                     <li class="current"><a href="index.html">Home</a></li>
                     <li><a href="left-sidebar.html">Services</a></li>
                     <li><a href="right-sidebar.html">Contact Us</a></li>
-                    <li><a href="login.html">Log in/ Sign up</a></li>
+                    <!-- Remove link to login if not needed -->
+                    <!-- <li><a href="login.html">Log in/ Sign up</a></li> -->
                 </ul>
             </nav>
 
@@ -145,6 +150,40 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Booking System -->
+        <section id="booking-system" class="container">
+            <h2>Manage Availability</h2>
+            <form id="availability-form">
+                <label for="available-date">Available Date:</label>
+                <input type="date" id="available-date" required>
+                
+                <label for="available-time">Available Time:</label>
+                <input type="time" id="available-time" required>
+                
+                <label for="service-type">Service Type:</label>
+                <input type="text" id="service-type" required>
+                
+                <button type="button" onclick="setAvailability()">Set Availability</button>
+            </form>
+
+            <h2>Make a Booking</h2>
+            <form id="booking-form">
+                <label for="booking-date">Date:</label>
+                <input type="date" id="booking-date" required>
+                
+                <label for="booking-time">Time:</label>
+                <input type="time" id="booking-time" required>
+                
+                <label for="booking-service">Service:</label>
+                <input type="text" id="booking-service" required>
+                
+                <label for="user-name">Your Name:</label>
+                <input type="text" id="user-name" required>
+                
+                <button type="button" onclick="makeBooking()">Book Now</button>
+            </form>
         </section>
 
         <!-- Footer -->
