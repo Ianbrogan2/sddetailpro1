@@ -28,11 +28,11 @@ function showNotification(message) {
 
 function setAvailability() {
     const date = document.getElementById('available-date').value;
-    const time = document.getElementById('available-time').value;
-    const service = document.getElementById('service-type').value;
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
     const repeatWeekly = document.getElementById('repeat-weekly').checked;
 
-    const availability = { date, time, service };
+    const availability = { date, startTime, endTime };
 
     // Add to Firebase
     db.collection('availability').add(availability).then(() => {
@@ -43,8 +43,8 @@ function setAvailability() {
                 nextWeek.setDate(nextWeek.getDate() + 7 * i);
                 db.collection('availability').add({
                     date: nextWeek.toISOString().split('T')[0],
-                    time,
-                    service
+                    startTime,
+                    endTime
                 });
             }
         }
@@ -62,9 +62,27 @@ function loadExistingAvailability() {
         querySnapshot.forEach((doc) => {
             const availability = doc.data();
             const listItem = document.createElement('li');
-            listItem.textContent = `${availability.date} at ${availability.time} - ${availability.service}`;
+            listItem.textContent = `${availability.date}: ${availability.startTime} - ${availability.endTime}`;
+            
+            // Add a remove button
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => {
+                removeAvailability(doc.id); // Call remove function
+            };
+            listItem.appendChild(removeButton);
+            
             existingAvailabilityList.appendChild(listItem);
         });
+    });
+}
+
+function removeAvailability(id) {
+    db.collection('availability').doc(id).delete().then(() => {
+        showNotification('Availability successfully removed!');
+        loadExistingAvailability(); // Refresh the list
+    }).catch((error) => {
+        showNotification(`Error removing availability: ${error.message}`);
     });
 }
 
