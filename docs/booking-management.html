@@ -4,30 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Management</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <script type="module" src="firebase-setup.js"></script>
-    <script type="module" src="booking-management.js" defer></script>
 </head>
 <body>
-    <h1>Manage Booking Availability</h1>
+    <h1>Manage Availability</h1>
     <form id="availability-form">
         <label for="available-date">Available Date:</label>
         <input type="date" id="available-date" required>
-
-        <label for="start-time">Start Time:</label>
-        <input type="time" id="start-time" required>
-
-        <label for="end-time">End Time:</label>
-        <input type="time" id="end-time" required>
-
+        
+        <label for="available-time">Available Time:</label>
+        <input type="time" id="available-time" required>
+        
+        <label for="service-type">Service Type:</label>
+        <input type="text" id="service-type" required>
+        
+        <input type="checkbox" id="repeat-weekly">
+        <label for="repeat-weekly">Repeat Weekly</label>
+        
         <button type="button" onclick="setAvailability()">Set Availability</button>
     </form>
 
-    <div id="availability-list">
-        <h2>Current Availability</h2>
-        <ul id="availability-ul">
-            <!-- Available times will be displayed here -->
-        </ul>
-    </div>
+    <h2>Existing Availability</h2>
+    <ul id="existing-availability"></ul> <!-- This will display the existing dates -->
+
+    <script src="path/to/your/booking-management.js"></script>
 </body>
 </html>
