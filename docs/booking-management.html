@@ -1,31 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Management</title>
-</head>
-<body>
-    <h1>Manage Availability</h1>
-    <form id="availability-form">
-        <label for="available-date">Available Date:</label>
-        <input type="date" id="available-date" required>
-        
-        <label for="available-time">Available Time:</label>
-        <input type="time" id="available-time" required>
-        
-        <label for="service-type">Service Type:</label>
-        <input type="text" id="service-type" required>
-        
-        <input type="checkbox" id="repeat-weekly">
-        <label for="repeat-weekly">Repeat Weekly</label>
-        
-        <button type="button" onclick="setAvailability()">Set Availability</button>
-    </form>
+<form id="availability-form">
+    <label for="available-date">Available Date:</label>
+    <input type="date" id="available-date" required>
+    
+    <label for="start-time">Start Time:</label>
+    <input type="time" id="start-time" required>
+    
+    <label for="end-time">End Time:</label>
+    <input type="time" id="end-time" required>
+    
+    <label for="repeat-weekly">Repeat Weekly:</label>
+    <input type="checkbox" id="repeat-weekly">
+    
+    <button type="button" onclick="setAvailability()">Set Availability</button>
+</form>
 
-    <h2>Existing Availability</h2>
-    <ul id="existing-availability"></ul> <!-- This will display the existing dates -->
-
-    <script src="path/to/your/booking-management.js"></script>
-</body>
-</html>
+<h2>Existing Availability</h2>
+<ul id="existing-availability"></ul>
