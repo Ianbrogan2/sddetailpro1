@@ -1,40 +1,23 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Book a Service | SD Detail Pro</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management</title>
 </head>
 <body>
-    <div id="page-wrapper">
-        <h1>Book a Service</h1>
+    <h1>Manage Booking Availability</h1>
+    <form id="availability-form">
+        <label for="available-date">Available Date:</label>
+        <input type="date" id="available-date" required>
         
-        <!-- Section for Alec to input available dates and times -->
-        <div id="owner-section">
-            <h2>Set Availability</h2>
-            <input type="date" id="available-date" />
-            <input type="time" id="available-time" />
-            <select id="service-type">
-                <option value="basic-wash">Basic Wash</option>
-                <option value="full-detail">Full Detail</option>
-            </select>
-            <button onclick="setAvailability()">Set Availability</button>
-        </div>
+        <label for="available-time">Available Time:</label>
+        <input type="time" id="available-time" required>
         
-        <!-- Section for customers to make a booking -->
-        <div id="customer-section">
-            <h2>Book Now</h2>
-            <select id="booking-date"></select>
-            <select id="booking-time"></select>
-            <select id="booking-service">
-                <option value="basic-wash">Basic Wash</option>
-                <option value="full-detail">Full Detail</option>
-            </select>
-            <button onclick="makeBooking()">Book Service</button>
-        </div>
-    </div>
-
-    <script src="booking.js"></script>
+        <label for="service-type">Service Type:</label>
+        <input type="text" id="service-type" required>
+        
+        <button type="button" onclick="setAvailability()">Set Availability</button>
+    </form>
 </body>
 </html>
