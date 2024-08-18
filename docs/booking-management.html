@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script type="module" src="firebase-setup.js"></script>
+    <script type="module" src="booking-management.js" defer></script>
+</head>
+<body>
+    <h1>Manage Booking Availability</h1>
+    <form id="availability-form">
+        <label for="available-date">Available Date:</label>
+        <input type="date" id="available-date" required>
+
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time" required>
+
+        <label for="end-time">End Time:</label>
+        <input type="time" id="end-time" required>
+
+        <button type="button" onclick="setAvailability()">Set Availability</button>
+    </form>
+
+    <div id="availability-list">
+        <h2>Current Availability</h2>
+        <ul id="availability-ul">
+            <!-- Available times will be displayed here -->
+        </ul>
+    </div>
+</body>
+</html>
