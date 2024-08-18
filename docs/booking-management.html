@@ -1,18 +1,31 @@
-<form id="availability-form">
-    <label for="available-date">Available Date:</label>
-    <input type="date" id="available-date" required>
-    
-    <label for="start-time">Start Time:</label>
-    <input type="time" id="start-time" required>
-    
-    <label for="end-time">End Time:</label>
-    <input type="time" id="end-time" required>
-    
-    <label for="repeat-weekly">Repeat Weekly:</label>
-    <input type="checkbox" id="repeat-weekly">
-    
-    <button type="button" onclick="setAvailability()">Set Availability</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Management</title>
+</head>
+<body>
+    <form id="availability-form">
+        <label for="available-date">Available Date:</label>
+        <input type="date" id="available-date" required>
+        
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time" required>
+        
+        <label for="end-time">End Time:</label>
+        <input type="time" id="end-time" required>
+        
+        <label for="repeat-weekly">Repeat Weekly:</label>
+        <input type="checkbox" id="repeat-weekly">
+        
+        <button type="button" onclick="setAvailability()">Set Availability</button>
+    </form>
 
-<h2>Existing Availability</h2>
-<ul id="existing-availability"></ul>
+    <h2>Existing Availability</h2>
+    <ul id="existing-availability"></ul>
+
+    <script src="firebase-setup.js"></script> <!-- Make sure this path is correct -->
+    <script src="booking-management.js"></script> <!-- This should link to your JS file -->
+</body>
+</html>
