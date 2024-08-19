@@ -7,37 +7,87 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
     <script type="module">
-        // Firebase configuration and setup
-        const firebaseConfig = {
-            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
-            authDomain: "sd-detail-pro.firebaseapp.com",
-            projectId: "sd-detail-pro",
-            storageBucket: "sd-detail-pro.appspot.com",
-            messagingSenderId: "950327198258",
-            appId: "1:950327198258:web:1c5c749232c07783fef22b",
-            measurementId: "G-DQ1MX7K35F"
-        };
-
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore(app);
+        // Firebase setup (replace 'path/to/your' with the actual path if needed)
+        import { db } from './path/to/your/firebase-setup.js';
 
         document.addEventListener('DOMContentLoaded', () => {
             const availabilityForm = document.getElementById('availability-form');
             const availabilityList = document.getElementById('availability-list');
 
-            availabilityForm.addEventListener('submit', async (event) => {
+            // Load existing availability
+            loadAvailability();
+
+            availabilityForm.addEventListener('submit', (event) => {
                 event.preventDefault();
+                setAvailability();
+            });
+
+            function setAvailability() {
                 const date = document.getElementById('available-date').value;
                 const startTime = document.getElementById('available-start-time').value;
                 const endTime = document.getElementById('available-end-time').value;
+                const id = Date.now().toString(); // Unique ID for each slot
 
                 if (date && startTime && endTime) {
-                    await db.collection('availability').add({
+                    db.collection('availability').doc(id).set({
                         date,
                         startTime,
                         endTime
+                    })
+                    .then(() => {
+                        alert('Availability set successfully!');
+                        loadAvailability();
+                    })
+                    .catch((error) => {
+                        console.error('Error setting availability: ', error);
                     });
-                    alert('Availability set successfully!');
-                    loadAvailability();
                 } else {
-                    alert('Please fill out all fields
+                    alert('Please fill out all fields.');
+                }
+            }
+
+            function loadAvailability() {
+                db.collection('availability').get().then((querySnapshot) => {
+                    availabilityList.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        availabilityList.innerHTML += `
+                            <div>
+                                <p>${data.date} - ${data.startTime} to ${data.endTime}</p>
+                                <button onclick="removeAvailability('${doc.id}')">Remove</button>
+                            </div>
+                        `;
+                    });
+                });
+            }
+
+            window.removeAvailability = function(id) {
+                db.collection('availability').doc(id).delete().then(() => {
+                    alert('Availability removed successfully!');
+                    loadAvailability();
+                }).catch((error) => {
+                    console.error('Error removing availability: ', error);
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Manage Availability</h1>
+    <form id="availability-form">
+        <label for="available-date">Date:</label>
+        <input type="date" id="available-date" required>
+        
+        <label for="available-start-time">Start Time:</label>
+        <input type="time" id="available-start-time" required>
+        
+        <label for="available-end-time">End Time:</label>
+        <input type="time" id="available-end-time" required>
+        
+        <button type="submit">Set Availability</button>
+    </form>
+
+    <h2>Current Availability</h2>
+    <div id="availability-list"></div>
+</body>
+</html>
