@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const availabilityForm = document.getElementById('availability-form');
     const availabilityList = document.getElementById('availability-list');
 
+    // Define the document ID for the available slots
+    const availableSlotsDocId = 'uizpONxpx2bBkJ5nYG0E'; // Replace this with the correct document ID
+
     // Load existing availability
     loadAvailability();
 
@@ -19,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString(); // Unique ID for each slot
 
         if (date && startTime && endTime) {
-            db.collection('availability').doc(id).set({
+            db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).set({
                 date,
                 startTime,
                 endTime
@@ -37,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadAvailability() {
-        db.collection('availability').get().then((querySnapshot) => {
+        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').get().then((querySnapshot) => {
             availabilityList.innerHTML = '';
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
@@ -54,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.removeAvailability = function(id) {
-        db.collection('availability').doc(id).delete().then(() => {
+        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete().then(() => {
             alert('Availability removed successfully!');
             loadAvailability();
         }).catch((error) => {
