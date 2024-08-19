@@ -1,4 +1,4 @@
-import { db } from './firebase-setup.js'; // Firebase setup
+import { db } from './firebase-setup.js'; // Ensure correct path
 
 const availabilityForm = document.getElementById('availability-form');
 const existingAvailabilityList = document.getElementById('existing-availability');
@@ -74,6 +74,8 @@ function loadExistingAvailability() {
             
             existingAvailabilityList.appendChild(listItem);
         });
+    }).catch((error) => {
+        showNotification(`Error loading availability: ${error.message}`);
     });
 }
 
@@ -88,8 +90,3 @@ function removeAvailability(id) {
 
 // Load existing availability on page load
 loadExistingAvailability();
-
-availabilityForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form submission
-    setAvailability();
-});
