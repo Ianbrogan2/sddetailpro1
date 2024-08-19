@@ -1,92 +1,94 @@
-import { db } from './firebase-setup.js'; // Ensure correct path
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Availability</title>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <script type="module">
+        import { db } from './firebase-setup.js';
 
-const availabilityForm = document.getElementById('availability-form');
-const existingAvailabilityList = document.getElementById('existing-availability');
+        document.addEventListener('DOMContentLoaded', () => {
+            const availabilityForm = document.getElementById('availability-form');
+            const availabilityList = document.getElementById('availability-list');
 
-// Add a notification element to the HTML
-const notification = document.createElement('div');
-notification.id = 'notification';
-notification.style.display = 'none'; // Hide it initially
-notification.style.position = 'fixed';
-notification.style.top = '20px';
-notification.style.right = '20px';
-notification.style.backgroundColor = '#4caf50'; // Green background
-notification.style.color = 'white';
-notification.style.padding = '10px';
-notification.style.borderRadius = '5px';
-document.body.appendChild(notification);
+            // Load existing availability
+            loadAvailability();
 
-function showNotification(message) {
-    notification.textContent = message;
-    notification.style.display = 'block';
+            availabilityForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                setAvailability();
+            });
 
-    // Hide the notification after 3 seconds
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 3000);
-}
+            function setAvailability() {
+                const date = document.getElementById('available-date').value;
+                const startTime = document.getElementById('available-start-time').value;
+                const endTime = document.getElementById('available-end-time').value;
+                const id = Date.now().toString(); // Unique ID for each slot
 
-function setAvailability() {
-    const date = document.getElementById('available-date').value;
-    const startTime = document.getElementById('start-time').value;
-    const endTime = document.getElementById('end-time').value;
-    const repeatWeekly = document.getElementById('repeat-weekly').checked;
+                if (date && startTime && endTime) {
+                    db.collection('availability').doc(id).set({
+                        date,
+                        startTime,
+                        endTime
+                    })
+                    .then(() => {
+                        alert('Availability set successfully!');
+                        loadAvailability();
+                    })
+                    .catch((error) => {
+                        console.error('Error setting availability: ', error);
+                    });
+                } else {
+                    alert('Please fill out all fields.');
+                }
+            }
 
-    const availability = { date, startTime, endTime };
-
-    // Add to Firebase
-    db.collection('availability').add(availability).then(() => {
-        if (repeatWeekly) {
-            // Repeat weekly: add availability for the next 4 weeks
-            for (let i = 1; i <= 4; i++) {
-                const nextWeek = new Date(date);
-                nextWeek.setDate(nextWeek.getDate() + 7 * i);
-                db.collection('availability').add({
-                    date: nextWeek.toISOString().split('T')[0],
-                    startTime,
-                    endTime
+            function loadAvailability() {
+                db.collection('availability').get().then((querySnapshot) => {
+                    availabilityList.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        availabilityList.innerHTML += `
+                            <div>
+                                <p>${data.date} - ${data.startTime} to ${data.endTime}</p>
+                                <button onclick="removeAvailability('${doc.id}')">Remove</button>
+                            </div>
+                        `;
+                    });
+                }).catch((error) => {
+                    console.error('Error loading availability: ', error);
                 });
             }
-        }
-        showNotification('Availability successfully set!'); // Show success message
-        loadExistingAvailability(); // Refresh the list
-    }).catch((error) => {
-        showNotification(`Error setting availability: ${error.message}`);
-    });
-}
 
-function loadExistingAvailability() {
-    existingAvailabilityList.innerHTML = ''; // Clear list
-
-    db.collection('availability').get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            const availability = doc.data();
-            const listItem = document.createElement('li');
-            listItem.textContent = `${availability.date}: ${availability.startTime} - ${availability.endTime}`;
-            
-            // Add a remove button
-            const removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            removeButton.onclick = () => {
-                removeAvailability(doc.id); // Call remove function
-            };
-            listItem.appendChild(removeButton);
-            
-            existingAvailabilityList.appendChild(listItem);
+            window.removeAvailability = function(id) {
+                db.collection('availability').doc(id).delete().then(() => {
+                    alert('Availability removed successfully!');
+                    loadAvailability();
+                }).catch((error) => {
+                    console.error('Error removing availability: ', error);
+                });
+            }
         });
-    }).catch((error) => {
-        showNotification(`Error loading availability: ${error.message}`);
-    });
-}
+    </script>
+</head>
+<body>
+    <h1>Manage Availability</h1>
+    <form id="availability-form">
+        <label for="available-date">Date:</label>
+        <input type="date" id="available-date" required>
+        
+        <label for="available-start-time">Start Time:</label>
+        <input type="time" id="available-start-time" required>
+        
+        <label for="available-end-time">End Time:</label>
+        <input type="time" id="available-end-time" required>
+        
+        <button type="submit">Set Availability</button>
+    </form>
 
-function removeAvailability(id) {
-    db.collection('availability').doc(id).delete().then(() => {
-        showNotification('Availability successfully removed!');
-        loadExistingAvailability(); // Refresh the list
-    }).catch((error) => {
-        showNotification(`Error removing availability: ${error.message}`);
-    });
-}
-
-// Load existing availability on page load
-loadExistingAvailability();
+    <h2>Current Availability</h2>
+    <div id="availability-list"></div>
+</body>
+</html>
