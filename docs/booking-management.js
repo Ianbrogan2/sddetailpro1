@@ -88,3 +88,8 @@ function removeAvailability(id) {
 
 // Load existing availability on page load
 loadExistingAvailability();
+
+availabilityForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent form submission
+    setAvailability();
+});
