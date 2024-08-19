@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Management</title>
-</head>
-<body>
-    <form id="availability-form">
-        <label for="available-date">Available Date:</label>
-        <input type="date" id="available-date" required>
-        
-        <label for="start-time">Start Time:</label>
-        <input type="time" id="start-time" required>
-        
-        <label for="end-time">End Time:</label>
-        <input type="time" id="end-time" required>
-        
-        <label for="repeat-weekly">Repeat Weekly:</label>
-        <input type="checkbox" id="repeat-weekly">
-        
-        <button type="button" onclick="setAvailability()">Set Availability</button>
-    </form>
+    <title>Manage Availability</title>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
+    <script type="module">
+        // Firebase configuration and setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
+            authDomain: "sd-detail-pro.firebaseapp.com",
+            projectId: "sd-detail-pro",
+            storageBucket: "sd-detail-pro.appspot.com",
+            messagingSenderId: "950327198258",
+            appId: "1:950327198258:web:1c5c749232c07783fef22b",
+            measurementId: "G-DQ1MX7K35F"
+        };
 
-    <h2>Existing Availability</h2>
-    <ul id="existing-availability"></ul>
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
 
-    <script src="firebase-setup.js"></script> <!-- Make sure this path is correct -->
-    <script src="booking-management.js"></script> <!-- This should link to your JS file -->
-</body>
-</html>
+        document.addEventListener('DOMContentLoaded', () => {
+            const availabilityForm = document.getElementById('availability-form');
+            const availabilityList = document.getElementById('availability-list');
+
+            availabilityForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const date = document.getElementById('available-date').value;
+                const startTime = document.getElementById('available-start-time').value;
+                const endTime = document.getElementById('available-end-time').value;
+
+                if (date && startTime && endTime) {
+                    await db.collection('availability').add({
+                        date,
+                        startTime,
+                        endTime
+                    });
+                    alert('Availability set successfully!');
+                    loadAvailability();
+                } else {
+                    alert('Please fill out all fields
