@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const availabilityList = document.getElementById('availability-list');
 
     // Define the document ID for the available slots
-    const availableSlotsDocId = 'uizpONxpx2bBkJ5nYG0E'; // Replace this with the correct document ID
+    const availableSlotsDocId = 'uizpONxpx2bBkJ5nYG0E'; // Ensure this is the correct ID for your document
 
     // Load existing availability
     loadAvailability();
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString(); // Unique ID for each slot
 
         if (date && startTime && endTime) {
+            // Add availability to the Firestore document
             db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).set({
                 date,
                 startTime,
@@ -40,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadAvailability() {
-        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').get().then((querySnapshot) => {
+        // Load availability from the Firestore document
+        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').get()
+        .then((querySnapshot) => {
             availabilityList.innerHTML = '';
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
@@ -51,16 +54,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             });
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.error('Error loading availability: ', error);
         });
     }
 
     window.removeAvailability = function(id) {
-        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete().then(() => {
+        // Remove availability from the Firestore document
+        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete()
+        .then(() => {
             alert('Availability removed successfully!');
             loadAvailability();
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.error('Error removing availability: ', error);
         });
     }
