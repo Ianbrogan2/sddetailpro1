@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString(); // Unique ID for each slot
 
         if (date && startTime && endTime) {
+            // Debugging line to check the data being sent
+            console.log("Setting availability with:", { date, startTime, endTime });
+
             // Add availability to the Firestore document
             db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).set({
                 date,
@@ -45,15 +48,19 @@ document.addEventListener('DOMContentLoaded', () => {
         db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').get()
         .then((querySnapshot) => {
             availabilityList.innerHTML = '';
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                availabilityList.innerHTML += `
-                    <div>
-                        <p>${data.date} - ${data.startTime} to ${data.endTime}</p>
-                        <button onclick="removeAvailability('${doc.id}')">Remove</button>
-                    </div>
-                `;
-            });
+            if (querySnapshot.empty) {
+                availabilityList.innerHTML = '<p>No availability found.</p>';
+            } else {
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    availabilityList.innerHTML += `
+                        <div>
+                            <p>${data.date} - ${data.startTime} to ${data.endTime}</p>
+                            <button onclick="removeAvailability('${doc.id}')">Remove</button>
+                        </div>
+                    `;
+                });
+            }
         })
         .catch((error) => {
             console.error('Error loading availability: ', error);
@@ -61,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.removeAvailability = function(id) {
+        // Debugging line to check the ID being removed
+        console.log("Removing availability with ID:", id);
+
         // Remove availability from the Firestore document
         db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete()
         .then(() => {
