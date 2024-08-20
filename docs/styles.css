@@ -1,4 +1,4 @@
-/* General styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -51,33 +51,39 @@ nav {
     text-decoration: none;
 }
 
-.main, .intro, .services-overview, .services, .news {
-    padding: 2rem 0;
+/* Layout for Different Sidebars */
+.left-sidebar .left-sidebar-content,
+.right-sidebar .right-sidebar-content {
+    display: flex;
+}
+
+.left-sidebar .sidebar,
+.right-sidebar .sidebar {
+    width: 25%;
+    background: #eee;
+    padding: 1rem;
+}
+
+.left-sidebar .main-content,
+.right-sidebar .main-content {
+    width: 75%;
+    padding: 1rem;
+}
+
+.no-sidebar .main-content {
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
-}
-
-.buttons .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 5px;
-}
-
-.button:hover {
-    background: #0056b3;
-}
-
-footer {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
 }
