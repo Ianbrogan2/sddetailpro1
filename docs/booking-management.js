@@ -1,4 +1,5 @@
 import { db } from './firebase-setup.js';
+import { collection, doc, setDoc, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const availabilityForm = document.getElementById('availability-form');
@@ -23,7 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (date && startTime && endTime) {
             // Add availability to the Firestore document
-            db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).set({
+            const availabilityRef = doc(collection(db, 'availableSlots', availableSlotsDocId, 'availability'), id);
+            setDoc(availabilityRef, {
                 date,
                 startTime,
                 endTime
@@ -42,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadAvailability() {
         // Load availability from the Firestore document
-        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').get()
+        const availabilityCollectionRef = collection(db, 'availableSlots', availableSlotsDocId, 'availability');
+        getDocs(availabilityCollectionRef)
         .then((querySnapshot) => {
             availabilityList.innerHTML = '';
             if (querySnapshot.empty) {
@@ -66,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.removeAvailability = function(id) {
         // Remove availability from the Firestore document
-        db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete()
+        const availabilityRef = doc(collection(db, 'availableSlots', availableSlotsDocId, 'availability'), id);
+        deleteDoc(availabilityRef)
         .then(() => {
             alert('Availability removed successfully!');
             loadAvailability();
