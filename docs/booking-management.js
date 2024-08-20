@@ -22,9 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = Date.now().toString(); // Unique ID for each slot
 
         if (date && startTime && endTime) {
-            // Debugging line to check the data being sent
-            console.log("Setting availability with:", { date, startTime, endTime });
-
             // Add availability to the Firestore document
             db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).set({
                 date,
@@ -68,9 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.removeAvailability = function(id) {
-        // Debugging line to check the ID being removed
-        console.log("Removing availability with ID:", id);
-
         // Remove availability from the Firestore document
         db.collection('availableSlots').doc(availableSlotsDocId).collection('availability').doc(id).delete()
         .then(() => {
