@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - SD Detail Pro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="booking.html">Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Book a Service</h1>
+        <form id="booking-form">
+            <label for="book-date">Date:</label>
+            <input type="date" id="book-date" required>
+            
+            <label for="book-time">Time:</label>
+            <input type="time" id="book-time" required>
+            
+            <label for="customer-name">Customer Name:</label>
+            <input type="text" id="customer-name" required>
+            
+            <label for="phone-number">Phone Number:</label>
+            <input type="tel" id="phone-number" required>
+            
+            <label for="service-type">Service Type:</label>
+            <input type="text" id="service-type" required>
+            
+            <button type="submit">Book Now</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="booking-management.js"></script>
+</body>
+</html>
