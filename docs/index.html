@@ -7,64 +7,84 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <nav>
-            <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="booking.html">Booking</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1><a href="index.html">SD Detail Pro</a></h1>
+            <nav>
+                <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
+    <!-- Main -->
     <main>
-        <h1>Welcome! This is SD Detail Pro.</h1>
-        <p>Providing top-notch car washing and detailing services to keep your vehicle looking pristine.</p>
-
-        <section>
-            <h2>Expert Care</h2>
-            <p>Using the best products and techniques to ensure your car gets the best treatment.</p>
-
-            <h2>Customer Satisfaction</h2>
-            <p>Our goal is to exceed your expectations and ensure you leave with a smile.</p>
-
-            <button><a href="services.html">Get Started</a></button>
-            <button><a href="services.html">Learn More</a></button>
-        </section>
-
-        <section>
-            <h2>Our Services</h2>
-            <div>
-                <h3>Basic Car Wash</h3>
-                <p>Thorough cleaning of your vehicle’s exterior to remove dirt and grime.</p>
-                <button><a href="services.html">Learn More</a></button>
-            </div>
-            <div>
-                <h3>Full Car Detailing</h3>
-                <p>Comprehensive interior and exterior detailing to make your car look brand new.</p>
-                <button><a href="services.html">Learn More</a></button>
+        <section class="intro">
+            <div class="container">
+                <h1>Welcome to SD Detail Pro!</h1>
+                <p>Providing top-notch car washing and detailing services to keep your vehicle looking pristine.</p>
             </div>
         </section>
 
-        <section>
-            <h2>Upcoming News</h2>
-            <div>
-                <h3>Car Cleaning Tips</h3>
-                <p>Posted 45 minutes ago</p>
-                <button><a href="news.html">Read More</a></button>
+        <section class="services-overview">
+            <div class="container">
+                <h2>Expert Care</h2>
+                <p>Using the best products and techniques to ensure your car gets the best treatment.</p>
+
+                <h2>Customer Satisfaction</h2>
+                <p>Our goal is to exceed your expectations and ensure you leave with a smile.</p>
+
+                <div class="buttons">
+                    <a href="services.html" class="button">Get Started</a>
+                    <a href="services.html" class="button">Learn More</a>
+                </div>
             </div>
-            <div>
-                <h3>Exciting Updates</h3>
-                <p>Stay tuned for exciting updates and new services coming soon!</p>
-                <button><a href="news.html">Read More</a></button>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service-item">
+                    <h3>Basic Car Wash</h3>
+                    <p>Thorough cleaning of your vehicle’s exterior to remove dirt and grime.</p>
+                    <a href="services.html" class="button">Learn More</a>
+                </div>
+                <div class="service-item">
+                    <h3>Full Car Detailing</h3>
+                    <p>Comprehensive interior and exterior detailing to make your car look brand new.</p>
+                    <a href="services.html" class="button">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="news">
+            <div class="container">
+                <h2>Upcoming News</h2>
+                <div class="news-item">
+                    <h3>Car Cleaning Tips</h3>
+                    <p>Posted 45 minutes ago</p>
+                    <a href="news.html" class="button">Read More</a>
+                </div>
+                <div class="news-item">
+                    <h3>Exciting Updates</h3>
+                    <p>Stay tuned for exciting updates and new services coming soon!</p>
+                    <a href="news.html" class="button">Read More</a>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
