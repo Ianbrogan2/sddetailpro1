@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
-import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, Timestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,29 +23,5 @@ const db = getFirestore(app); // Initialize Firestore
 window.auth = auth;
 window.db = db;
 
-// Function to check if the user is an admin
-export async function checkAdmin() {
-    const user = auth.currentUser;
-    if (user) {
-        const userRef = collection(db, "users");
-        const q = query(userRef, where("email", "==", user.email));
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-            const userData = querySnapshot.docs[0].data();
-            return userData.isAdmin; // Ensure you have a field `isAdmin` in your user documents
-        }
-    }
-    return false;
-}
-
-// Function to handle user state changes and set admin status
-export function setupAuthStateListener(onAdminCallback) {
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const isAdmin = await checkAdmin();
-            onAdminCallback(user, isAdmin);
-        } else {
-            onAdminCallback(null, false);
-        }
-    });
-}
+// Export the Firestore and Auth objects
+export { auth, db };
