@@ -1,304 +1,69 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Detail Pro</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <!-- Import Firebase setup script -->
-    <script type="module" src="path/to/your/firebase-setup.js" defer></script>
-    <!-- Import JavaScript for booking functionality -->
-    <script type="module" src="path/to/your/bookings.js" defer></script>
-    <!-- Check if user is admin -->
-    <script type="module">
-        import { checkAdmin } from './path/to/your/firebase-setup.js';
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const isAdmin = await checkAdmin();
-            if (isAdmin) {
-                document.getElementById('booking-system').style.display = 'block'; // Show booking management
-            } else {
-                document.getElementById('booking-system').style.display = 'none'; // Hide booking management
-            }
-        });
-    </script>
-    <style>
-        /* Additional Styles */
-        #booking-system {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        #booking-system h2 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        form {
-            margin-bottom: 30px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="date"], input[type="time"], input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            #booking-system {
-                padding: 15px;
-            }
-
-            h2 {
-                font-size: 1.3em;
-            }
-
-            button {
-                padding: 10px 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="homepage is-preload">
-    <div id="page-wrapper">
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="booking.html">Booking</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <!-- Header -->
-        <section id="header">
-            <!-- Logo -->
-            <h1><a href="index.html">SD Detail Pro</a></h1>
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="current"><a href="index.html">Home</a></li>
-                    <li><a href="left-sidebar.html">Services</a></li>
-                    <li><a href="right-sidebar.html">Contact Us</a></li>
-                    <li><a href="booking.html">Booking</a></li> <!-- Added Booking Tab -->
-                </ul>
-            </nav>
+    <main>
+        <h1>Welcome! This is SD Detail Pro.</h1>
+        <p>Providing top-notch car washing and detailing services to keep your vehicle looking pristine.</p>
 
-            <!-- Banner -->
-            <section id="banner">
-                <header>
-                    <h2>Welcome! This is SD Detail Pro.</h2>
-                    <p>Car Washing and Detailing</p>
-                </header>
-            </section>
+        <section>
+            <h2>Expert Care</h2>
+            <p>Using the best products and techniques to ensure your car gets the best treatment.</p>
 
-            <!-- Intro -->
-            <section id="intro" class="container">
-                <div class="row">
-                    <div class="col-4 col-12-medium">
-                        <section class="first">
-                            <i class="icon solid featured fa-cog"></i>
-                            <header>
-                                <h2>Expert Care</h2>
-                            </header>
-                            <p>Providing top-notch car washing and detailing services to keep your vehicle looking pristine.</p>
-                        </section>
-                    </div>
-                    <div class="col-4 col-12-medium">
-                        <section class="middle">
-                            <i class="icon solid featured alt fa-bolt"></i>
-                            <header>
-                                <h2>Quality Service</h2>
-                            </header>
-                            <p>Using the best products and techniques to ensure your car gets the best treatment.</p>
-                        </section>
-                    </div>
-                    <div class="col-4 col-12-medium">
-                        <section class="last">
-                            <i class="icon solid featured alt2 fa-star"></i>
-                            <header>
-                                <h2>Customer Satisfaction</h2>
-                            </header>
-                            <p>Our goal is to exceed your expectations and ensure you leave with a smile.</p>
-                        </section>
-                    </div>
-                </div>
-                <footer>
-                    <ul class="actions">
-                        <li><a href="#services" class="button large">Get Started</a></li>
-                        <li><a href="#learn-more" class="button alt large">Learn More</a></li>
-                    </ul>
-                </footer>
-            </section>
+            <h2>Customer Satisfaction</h2>
+            <p>Our goal is to exceed your expectations and ensure you leave with a smile.</p>
+
+            <button><a href="services.html">Get Started</a></button>
+            <button><a href="services.html">Learn More</a></button>
         </section>
 
-        <!-- Main -->
-        <section id="main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Portfolio -->
-                        <section>
-                            <header class="major">
-                                <h2>Our Services</h2>
-                            </header>
-                            <div class="row">
-                                <div class="col-6 col-12-small">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-                                        <header>
-                                            <h3>Basic Car Wash</h3>
-                                        </header>
-                                        <p>Thorough cleaning of your vehicle’s exterior to remove dirt and grime.</p>
-                                        <footer>
-                                            <ul class="actions">
-                                                <li><a href="left-sidebar.html#basic-car-wash" class="button alt">Learn More</a></li>
-                                            </ul>
-                                        </footer>
-                                    </section>
-                                </div>
-                                <div class="col-6 col-12-small">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-                                        <header>
-                                            <h3>Full Car Detailing</h3>
-                                        </header>
-                                        <p>Comprehensive interior and exterior detailing to make your car look brand new.</p>
-                                        <footer>
-                                            <ul class="actions">
-                                                <li><a href="left-sidebar.html#full-car-detailing" class="button alt">Learn More</a></li>
-                                            </ul>
-                                        </footer>
-                                    </section>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="col-12">
-                        <!-- Blog -->
-                        <section>
-                            <header class="major">
-                                <h2>Upcoming News</h2>
-                            </header>
-                            <div class="row">
-                                <div class="col-6 col-12-small">
-                                    <section class="box">
-                                        <a href="https://www.wowwoodys.com/10-everyday-tips-to-keep-your-car-clean/" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
-                                        <header>
-                                            <h3>Car Cleaning Tips</h3>
-                                            <p>Posted 45 minutes ago</p>
-                                        </header>
-                                        <p>Discover essential tips to keep your car clean and maintain its shine. <a href="https://www.wowwoodys.com/10-everyday-tips-to-keep-your-car-clean/">Read More</a></p>
-                                    </section>
-                                </div>
-                                <div class="col-6 col-12-small">
-                                    <section class="box">
-                                        <a href="#" class="image featured"><img src="images/pic09.jpg" alt="" /></a>
-                                        <header>
-                                            <h3>Upcoming News</h3>
-                                            <p>Posted 45 minutes ago</p>
-                                        </header>
-                                        <p>Stay tuned for exciting updates and new services coming soon!</p>
-                                    </section>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+        <section>
+            <h2>Our Services</h2>
+            <div>
+                <h3>Basic Car Wash</h3>
+                <p>Thorough cleaning of your vehicle’s exterior to remove dirt and grime.</p>
+                <button><a href="services.html">Learn More</a></button>
+            </div>
+            <div>
+                <h3>Full Car Detailing</h3>
+                <p>Comprehensive interior and exterior detailing to make your car look brand new.</p>
+                <button><a href="services.html">Learn More</a></button>
             </div>
         </section>
 
-        <!-- Booking System -->
-        <section id="booking-system" class="container">
-            <h2>Manage Availability</h2>
-            <form id="availability-form">
-                <div class="form-group">
-                    <label for="available-date">Available Date:</label>
-                    <input type="date" id="available-date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="available-time">Available Time:</label>
-                    <input type="time" id="available-time" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="service-type">Service Type:</label>
-                    <input type="text" id="service-type" placeholder="e.g., Basic Car Wash" required>
-                </div>
-
-                <button type="submit">Set Availability</button>
-            </form>
-
-            <h2>Book a Service</h2>
-            <form id="booking-form">
-                <div class="form-group">
-                    <label for="booking-date">Date:</label>
-                    <input type="date" id="booking-date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="booking-time">Time:</label>
-                    <input type="time" id="booking-time" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="customer-name">Customer Name:</label>
-                    <input type="text" id="customer-name" placeholder="Enter your name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="customer-phone">Phone Number:</label>
-                    <input type="text" id="customer-phone" placeholder="Enter your phone number" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="service-type-booking">Service Type:</label>
-                    <input type="text" id="service-type-booking" placeholder="e.g., Full Car Detailing" required>
-                </div>
-
-                <button type="submit">Book Now</button>
-            </form>
-        </section>
-
-        <!-- Footer -->
-        <section id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Copyright -->
-                        <ul class="copyright">
-                            <li>&copy; SD Detail Pro. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <section>
+            <h2>Upcoming News</h2>
+            <div>
+                <h3>Car Cleaning Tips</h3>
+                <p>Posted 45 minutes ago</p>
+                <button><a href="news.html">Read More</a></button>
+            </div>
+            <div>
+                <h3>Exciting Updates</h3>
+                <p>Stay tuned for exciting updates and new services coming soon!</p>
+                <button><a href="news.html">Read More</a></button>
             </div>
         </section>
-    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+    </footer>
 </body>
 </html>
