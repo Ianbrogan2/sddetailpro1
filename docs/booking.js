@@ -1,105 +1,93 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>Booking - SD Detail Pro</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-</head>
-<body class="right-sidebar is-preload">
-    <div id="page-wrapper">
+import { db } from './firebase-config.js'; // Ensure correct path to your Firebase config
+import { collection, query, where, getDocs, Timestamp, addDoc } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js';
+import { sendEmail, sendSMS } from './notifications.js'; // Implement these functions for email and SMS notifications
 
-        <!-- Header -->
-        <section id="header">
-            <h1><a href="index.html">SD Detail Pro</a></h1>
-            <nav id="nav">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li class="current"><a href="booking.html">Booking</a></li>
-                </ul>
-            </nav>
-        </section>
+const serviceSelect = document.getElementById('service');
+const dateInput = document.getElementById('date');
+const timeInput = document.getElementById('time');
+const bookingForm = document.getElementById('booking-form');
 
-        <!-- Main -->
-        <section id="main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-8 col-12-medium">
-                        <section class="box post">
-                            <header>
-                                <h2>Book an Appointment</h2>
-                            </header>
-                            <p>Select your desired service, date, and time. Alec will receive an email and text notification of your booking.</p>
+// Handle form submission
+bookingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const service = serviceSelect.value;
+    const date = dateInput.value;
+    const time = timeInput.value;
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
 
-                            <form id="booking-form">
-                                <div class="row gtr-50 gtr-uniform">
-                                    <div class="col-6 col-12-small">
-                                        <label for="service">Select Service:</label>
-                                        <select name="service" id="service">
-                                            <option value="basic">Basic Car Wash</option>
-                                            <option value="full">Full Car Detailing</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 col-12-small">
-                                        <label for="date">Select Date:</label>
-                                        <input type="date" name="date" id="date" />
-                                    </div>
-                                    <div class="col-6 col-12-small">
-                                        <label for="time">Select Time:</label>
-                                        <input type="time" name="time" id="time" />
-                                    </div>
-                                    <div class="col-12">
-                                        <ul class="actions">
-                                            <li><input type="submit" value="Book Appointment" class="primary" /></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </form>
+    // Validate inputs
+    if (!service || !date || !time || !name || !email || !phone) {
+        alert('Please fill in all fields.');
+        return;
+    }
 
-                        </section>
-                    </div>
-                    <div class="col-4 col-12-medium">
+    // Add booking to Firestore
+    try {
+        await addDoc(collection(db, 'bookings'), {
+            service,
+            date,
+            time,
+            name,
+            email,
+            phone,
+            createdAt: Timestamp.fromDate(new Date())
+        });
 
-                        <!-- Sidebar -->
-                        <section class="box">
-                            <header>
-                                <h3>Contact Us</h3>
-                            </header>
-                            <p>If you have any questions or need to reschedule, please contact us.</p>
-                            <footer>
-                                <a href="contact.html" class="button alt">Contact Us</a>
-                            </footer>
-                        </section>
+        // Notify Alec
+        sendEmail(email, 'New Booking Received', `You have a new booking for ${service} on ${date} at ${time}.`);
+        sendSMS(phone, `New booking for ${service} on ${date} at ${time}.`);
 
-                    </div>
-                </div>
-            </div>
-        </section>
+        alert('Booking confirmed!');
+        bookingForm.reset();
+    } catch (error) {
+        console.error('Error adding booking: ', error);
+        alert('An error occurred. Please try again.');
+    }
+});
 
-        <!-- Footer -->
-        <section id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <section>
-                            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </section>
+// Fetch available dates and times based on selected service
+serviceSelect.addEventListener('change', async () => {
+    const selectedService = serviceSelect.value;
+    if (!selectedService) return;
 
-    </div>
+    // Fetch available dates
+    const datesQuery = query(collection(db, 'availability'), where('service', '==', selectedService));
+    const datesSnapshot = await getDocs(datesQuery);
+    const availableDates = datesSnapshot.docs.map(doc => doc.data().date.toDate().toISOString().split('T')[0]);
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.dropotron.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+    // Populate date input with available dates
+    dateInput.innerHTML = '<option value="">Select a date</option>';
+    availableDates.forEach(date => {
+        const option = document.createElement('option');
+        option.value = date;
+        option.textContent = date;
+        dateInput.appendChild(option);
+    });
+});
 
-</body>
-</html>
+// Fetch available times based on selected date
+dateInput.addEventListener('change', async () => {
+    const selectedDate = dateInput.value;
+    const selectedService = serviceSelect.value;
+    if (!selectedDate || !selectedService) return;
+
+    // Fetch available times
+    const timesQuery = query(
+        collection(db, 'availability'),
+        where('date', '==', Timestamp.fromDate(new Date(selectedDate))),
+        where('service', '==', selectedService)
+    );
+    const timesSnapshot = await getDocs(timesQuery);
+    const availableTimes = timesSnapshot.docs.map(doc => doc.data().time.toDate().toISOString().split('T')[1].slice(0, 5));
+
+    // Populate time input with available times
+    timeInput.innerHTML = '<option value="">Select a time</option>';
+    availableTimes.forEach(time => {
+        const option = document.createElement('option');
+        option.value = time;
+        option.textContent = time;
+        timeInput.appendChild(option);
+    });
+});
