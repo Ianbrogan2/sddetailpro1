@@ -1,205 +1,113 @@
 /* Main Styles */
-
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-body {
-    background: #f9f9f9;
+body.homepage {
+    background: #f0f4f8;
     color: #333;
+    font-family: Arial, sans-serif;
 }
 
-#page-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
+/* Header */
 #header {
-    background: #333;
+    background: #004d40;
     color: #fff;
-    padding: 20px 0;
+    padding: 1em 0;
 }
 
-#header h1 {
-    margin: 0;
-    text-align: center;
-}
-
-#header a {
+#header h1 a {
     color: #fff;
     text-decoration: none;
 }
 
-#header nav {
-    text-align: center;
-    margin-top: 10px;
-}
-
-#header nav ul {
-    list-style: none;
+#nav ul {
+    display: flex;
+    justify-content: center;
     padding: 0;
+    list-style: none;
 }
 
-#header nav ul li {
-    display: inline;
-    margin: 0 15px;
+#nav ul li {
+    margin: 0 1em;
 }
 
-#header nav ul li a {
+#nav ul li a {
     color: #fff;
+    text-decoration: none;
+}
+
+#nav ul li.current a {
     font-weight: bold;
-    text-transform: uppercase;
 }
 
-#header .current a {
-    color: #00aaff;
-}
-
+/* Main Section */
 #main {
-    padding: 40px 20px;
     text-align: center;
+    padding: 3em 0;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
 }
 
 #main h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+    color: #004d40;
 }
 
-#main p {
-    font-size: 1.2em;
-    margin-bottom: 40px;
-}
-
-#main .actions {
-    list-style: none;
-    padding: 0;
-}
-
-#main .actions li {
-    display: inline;
-    margin: 0 10px;
-}
-
-#main .actions a.button {
-    background: #00aaff;
+.button.big {
+    background: #004d40;
     color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
+    padding: 0.75em 1.5em;
     border-radius: 5px;
-    font-weight: bold;
+    text-decoration: none;
 }
 
-#main .actions a.button.alt {
-    background: #333;
+.button.alt.big {
+    background: #00695c;
 }
 
+/* Highlights Section */
 #highlights {
-    padding: 40px 20px;
-    background: #fff;
+    padding: 2em 0;
 }
 
-#highlights .box {
-    background: #f9f9f9;
-    border-radius: 5px;
-    padding: 20px;
+.highlight-box {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-#highlights .box i {
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-
-#highlights .box h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-#highlights .box p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-#highlights .box footer a.button {
-    background: #00aaff;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-#news {
-    padding: 40px 20px;
     background: #fff;
+    padding: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-#news .box {
-    background: #f9f9f9;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 20px;
+.highlight-box h3 {
+    color: #004d40;
 }
 
-#news .box h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.highlight-box .button.alt {
+    background: #004d40;
 }
 
-#news .box p {
-    font-size: 1.2em;
+/* News Section */
+#news {
+    padding: 2em 0;
 }
 
-#news .box footer a.button {
-    background: #00aaff;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+.news-box {
+    background: #fff;
+    padding: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+.news-box h3 {
+    color: #004d40;
+}
+
+/* Footer */
 #footer {
-    padding: 20px 0;
-    background: #333;
+    background: #004d40;
     color: #fff;
+    padding: 1em 0;
     text-align: center;
 }
 
 #footer p {
     margin: 0;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-    #header nav ul {
-        text-align: center;
-        padding: 0;
-    }
-
-    #header nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    #main h2 {
-        font-size: 2em;
-    }
-
-    #main p {
-        font-size: 1em;
-    }
-
-    #highlights .row,
-    #news .row {
-        flex-direction: column;
-    }
-
-    #highlights .col-4,
-    #news .col-6 {
-        width: 100%;
-    }
 }
