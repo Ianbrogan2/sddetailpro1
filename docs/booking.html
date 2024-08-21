@@ -1,14 +1,17 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking - SD Detail Pro</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
 </head>
-<body>
-    <header>
-        <nav>
+<body class="no-sidebar is-preload">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="index.html">SD Detail Pro</a></h1>
+        <nav id="nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html">Services</a></li>
@@ -18,32 +21,64 @@
         </nav>
     </header>
 
-    <main>
-        <h1>Book a Service</h1>
-        <form id="booking-form">
-            <label for="book-date">Date:</label>
-            <input type="date" id="book-date" required>
-            
-            <label for="book-time">Time:</label>
-            <input type="time" id="book-time" required>
-            
-            <label for="customer-name">Customer Name:</label>
-            <input type="text" id="customer-name" required>
-            
-            <label for="phone-number">Phone Number:</label>
-            <input type="tel" id="phone-number" required>
-            
-            <label for="service-type">Service Type:</label>
-            <input type="text" id="service-type" required>
-            
-            <button type="submit">Book Now</button>
-        </form>
-    </main>
+    <!-- Main -->
+    <section id="main">
+        <div class="container">
+            <header>
+                <h2>Book Your Appointment</h2>
+            </header>
+            <form id="booking-form" action="/submit-booking" method="POST">
+                <div class="row gtr-50">
+                    <div class="col-6 col-12-mobile">
+                        <input type="text" name="name" id="name" placeholder="Your Name" required />
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <input type="email" name="email" id="email" placeholder="Your Email" required />
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <input type="tel" name="phone" id="phone" placeholder="Your Phone Number" required />
+                    </div>
+                    <div class="col-6 col-12-mobile">
+                        <select name="service" id="service" required>
+                            <option value="">Select a Service</option>
+                            <option value="basic">Basic Car Wash</option>
+                            <option value="full">Full Car Detailing</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <input type="date" name="date" id="date" required />
+                    </div>
+                    <div class="col-12">
+                        <textarea name="comments" id="comments" placeholder="Any additional requests or comments?" rows="4"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" class="button" value="Book Now" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <script type="module" src="booking-management.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
 </body>
 </html>
