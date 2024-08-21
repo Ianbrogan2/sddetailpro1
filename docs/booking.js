@@ -1,70 +1,105 @@
-import { checkAdmin, db } from './firebase-setup.js';
-import { collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Booking - SD Detail Pro</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body class="right-sidebar is-preload">
+    <div id="page-wrapper">
 
-// Function to set availability by Alec
-async function setAvailability() {
-    const date = document.getElementById("available-date").value;
-    const time = document.getElementById("available-time").value;
-    const service = document.getElementById("service-type").value;
+        <!-- Header -->
+        <section id="header">
+            <h1><a href="index.html">SD Detail Pro</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li class="current"><a href="booking.html">Booking</a></li>
+                </ul>
+            </nav>
+        </section>
 
-    if (date && time && service) {
-        try {
-            const availabilityRef = collection(db, "availability");
-            await addDoc(availabilityRef, {
-                date: date,
-                time: time,
-                service: service,
-                timestamp: Timestamp.fromDate(new Date())
-            });
-            console.log(`Availability set for ${date} at ${time} for ${service}`);
-            alert(`Availability set for ${date} at ${time} for ${service}`);
-        } catch (error) {
-            console.error("Error adding availability: ", error);
-            alert("Error setting availability. Please try again.");
-        }
-    } else {
-        alert("Please fill in all fields.");
-    }
-}
+        <!-- Main -->
+        <section id="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 col-12-medium">
+                        <section class="box post">
+                            <header>
+                                <h2>Book an Appointment</h2>
+                            </header>
+                            <p>Select your desired service, date, and time. Alec will receive an email and text notification of your booking.</p>
 
-// Function to make a booking by customer
-async function makeBooking() {
-    const date = document.getElementById("booking-date").value;
-    const time = document.getElementById("booking-time").value;
-    const service = document.getElementById("booking-service").value;
+                            <form id="booking-form">
+                                <div class="row gtr-50 gtr-uniform">
+                                    <div class="col-6 col-12-small">
+                                        <label for="service">Select Service:</label>
+                                        <select name="service" id="service">
+                                            <option value="basic">Basic Car Wash</option>
+                                            <option value="full">Full Car Detailing</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 col-12-small">
+                                        <label for="date">Select Date:</label>
+                                        <input type="date" name="date" id="date" />
+                                    </div>
+                                    <div class="col-6 col-12-small">
+                                        <label for="time">Select Time:</label>
+                                        <input type="time" name="time" id="time" />
+                                    </div>
+                                    <div class="col-12">
+                                        <ul class="actions">
+                                            <li><input type="submit" value="Book Appointment" class="primary" /></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
 
-    if (date && time && service) {
-        try {
-            const bookingsRef = collection(db, "bookings");
-            await addDoc(bookingsRef, {
-                date: date,
-                time: time,
-                service: service,
-                timestamp: Timestamp.fromDate(new Date())
-            });
-            console.log(`Booking made for ${date} at ${time} for ${service}`);
-            alert(`Booking made for ${date} at ${time} for ${service}`);
-        } catch (error) {
-            console.error("Error making booking: ", error);
-            alert("Error making booking. Please try again.");
-        }
-    } else {
-        alert("Please fill in all fields.");
-    }
-}
+                        </section>
+                    </div>
+                    <div class="col-4 col-12-medium">
 
-// Initialize the visibility of the booking system based on admin status
-document.addEventListener('DOMContentLoaded', async () => {
-    const isAdmin = await checkAdmin();
-    if (isAdmin) {
-        // Admin can manage availability; this functionality should be accessible in the admin panel
-        // Example: Toggle visibility of admin controls
-        document.getElementById('admin-controls').style.display = 'block'; // Show admin controls
-    } else {
-        document.getElementById('admin-controls').style.display = 'none'; // Hide if not admin
-    }
-});
+                        <!-- Sidebar -->
+                        <section class="box">
+                            <header>
+                                <h3>Contact Us</h3>
+                            </header>
+                            <p>If you have any questions or need to reschedule, please contact us.</p>
+                            <footer>
+                                <a href="contact.html" class="button alt">Contact Us</a>
+                            </footer>
+                        </section>
 
-// Attach event listeners to buttons
-document.getElementById("set-availability-btn").addEventListener("click", setAvailability);
-document.getElementById("make-booking-btn").addEventListener("click", makeBooking);
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <section>
+                            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>
