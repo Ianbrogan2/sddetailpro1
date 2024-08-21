@@ -5,62 +5,153 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #header h1 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        #nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        #nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #main {
+            background-color: #f9f9f9;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #main h2 {
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        #main p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        #highlights .box {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        #highlights .box h3 {
+            color: #333;
+        }
+
+        #highlights .box p {
+            color: #666;
+        }
+
+        #news .box {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .button.alt {
+            background-color: #6c757d;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body class="homepage is-preload">
-
-    <!-- Wrapper -->
     <div id="page-wrapper">
 
         <!-- Header -->
-        <header id="header">
-            <div class="container">
-                <h1><a href="index.html">SD Detail Pro</a></h1>
-                <nav id="nav">
-                    <ul>
-                        <li class="current"><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="booking.html">Booking</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+        <section id="header">
+            <h1><a href="index.html">SD Detail Pro</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                </ul>
+            </nav>
+        </section>
 
         <!-- Main -->
         <section id="main">
-            <div class="container">
-                <header>
-                    <h2>Welcome to SD Detail Pro</h2>
-                    <p>Your vehicle deserves the best care. We're here to provide it with top-notch detailing services.</p>
-                </header>
-                <footer>
-                    <ul class="actions">
-                        <li><a href="services.html" class="button big">Get Started</a></li>
-                        <li><a href="contact.html" class="button alt big">Learn More</a></li>
-                    </ul>
-                </footer>
-            </div>
+            <header>
+                <h2>Welcome to SD Detail Pro</h2>
+                <p>Your vehicle deserves the best care. We're here to provide it.</p>
+            </header>
+            <footer>
+                <ul class="actions">
+                    <li><a href="services.html" class="button big">Get Started</a></li>
+                    <li><a href="contact.html" class="button alt big">Learn More</a></li>
+                </ul>
+            </footer>
         </section>
 
         <!-- Highlights -->
         <section id="highlights" class="container">
             <div class="row aln-center">
-                <div class="col-6 col-12-medium">
-                    <section class="box highlight-box">
+                <div class="col-4 col-12-medium">
+                    <section class="box">
                         <i class="icon solid fa-car major"></i>
                         <h3>Basic Car Wash</h3>
-                        <p>Thorough exterior cleaning to keep your vehicle looking fresh and clean.</p>
+                        <p>Thorough exterior cleaning for your vehicle.</p>
                         <footer>
                             <a href="services.html#basic" class="button alt">Learn More</a>
                         </footer>
                     </section>
                 </div>
-                <div class="col-6 col-12-medium">
-                    <section class="box highlight-box">
+                <div class="col-4 col-12-medium">
+                    <section class="box">
                         <i class="icon solid fa-broom major"></i>
                         <h3>Full Car Detailing</h3>
-                        <p>Complete interior and exterior detailing to make your car look brand new.</p>
+                        <p>Complete interior and exterior detailing services.</p>
                         <footer>
                             <a href="services.html#full" class="button alt">Learn More</a>
                         </footer>
@@ -76,7 +167,7 @@
             </header>
             <div class="row">
                 <div class="col-6 col-12-medium">
-                    <section class="box news-box">
+                    <section class="box">
                         <h3>Car Cleaning Tips</h3>
                         <p>Posted 45 minutes ago</p>
                         <footer>
@@ -85,7 +176,7 @@
                     </section>
                 </div>
                 <div class="col-6 col-12-medium">
-                    <section class="box news-box">
+                    <section class="box">
                         <h3>Exciting Updates</h3>
                         <p>Stay tuned for exciting updates and new services coming soon!</p>
                     </section>
@@ -94,7 +185,7 @@
         </section>
 
         <!-- Footer -->
-        <footer id="footer">
+        <section id="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -104,7 +195,7 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </section>
 
     </div>
 
