@@ -4,54 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking - SD Detail Pro</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <h1><a href="index.html">SD Detail Pro</a></h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="booking.html">Booking</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="right-sidebar is-preload">
+    <div id="page-wrapper">
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <section id="booking">
-            <h1>Book Your Appointment</h1>
-            <form action="/submit-booking" method="POST">
-                <div class="form-group">
-                    <label for="service">Select Service:</label>
-                    <select id="service" name="service" required>
-                        <option value="Basic Car Wash">Basic Car Wash</option>
-                        <option value="Full Car Detailing">Full Car Detailing</option>
-                        <option value="Premium Waxing">Premium Waxing</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="date">Select Date:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="time">Select Time:</label>
-                    <input type="time" id="time" name="time" required>
-                </div>
-
-                <button type="submit" class="button">Book Appointment</button>
-            </form>
+        <!-- Header -->
+        <section id="header">
+            <h1><a href="index.html">SD Detail Pro</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li class="current"><a href="booking.html">Booking</a></li>
+                </ul>
+            </nav>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
-    </footer>
+        <!-- Main Content -->
+        <main id="main-content">
+            <section id="booking">
+                <h1>Book Your Appointment</h1>
+                <form id="booking-form" action="/submit-booking" method="POST">
+                    <div class="form-group">
+                        <label for="service">Select Service:</label>
+                        <select id="service" name="service" required>
+                            <option value="">-- Select a Service --</option>
+                            <option value="Basic Car Wash">Basic Car Wash</option>
+                            <option value="Full Car Detailing">Full Car Detailing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Select Date:</label>
+                        <input type="text" id="date" name="date" placeholder="Select Date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Select Time:</label>
+                        <select id="time" name="time" required>
+                            <option value="">-- Select Time --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Your Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <button type="submit" class="button">Book Appointment</button>
+                </form>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <section>
+                            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize Flatpickr for the date input
+        flatpickr("#date", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            onChange: function(selectedDates, dateStr, instance) {
+                updateAvailableTimes(dateStr);
+            }
+        });
+
+        // Function to update available times based on selected date
+        function updateAvailableTimes(date) {
+            const timeSelect = document.getElementById('time');
+            timeSelect.innerHTML = '<option value="">-- Select Time --</option>';
+            if (!date) return;
+
+            // Fetch available times for the selected date from the server
+            fetch(`/api/available-times?date=${date}`)
+                .then(response => response.json())
+                .then(times => {
+                    times.forEach(time => {
+                        let option = document.createElement('option');
+                        option.value = time;
+                        option.textContent = time;
+                        timeSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching available times:', error));
+        }
+
+        // Handle form submission
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Prepare form data
+            const formData = new FormData(this);
+
+            fetch('/submit-booking', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Booking confirmed! Alec will be notified.');
+                this.reset();  // Reset form fields
+            })
+            .catch(error => console.error('Error submitting booking:', error));
+        });
+    </script>
 </body>
 </html>
