@@ -128,17 +128,17 @@
                     </select>
                 </div>
 
-                <div class="form-group" id="date-group">
+                <div class="form-group">
                     <label for="date">Select Date:</label>
                     <select id="date" name="date" required disabled>
-                        <!-- Options will be dynamically added here -->
+                        <option value="">Select a date</option>
                     </select>
                 </div>
 
-                <div class="form-group" id="time-group">
+                <div class="form-group">
                     <label for="time">Select Time:</label>
                     <select id="time" name="time" required disabled>
-                        <!-- Options will be dynamically added here -->
+                        <option value="">Select a time</option>
                     </select>
                 </div>
 
@@ -169,48 +169,60 @@
 
     <!-- Scripts -->
     <script>
+        // JavaScript to dynamically load available dates and times
         document.getElementById('service').addEventListener('change', function() {
-            // Fetch available dates based on selected service
-            fetch('/available-dates?service=' + encodeURIComponent(this.value))
-                .then(response => response.json())
-                .then(data => {
-                    const dateSelect = document.getElementById('date');
-                    const timeSelect = document.getElementById('time');
-
-                    dateSelect.innerHTML = '<option value="">Select a date</option>';
-                    timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-                    if (data.dates && data.dates.length) {
-                        data.dates.forEach(date => {
-                            dateSelect.innerHTML += `<option value="${date}">${date}</option>`;
-                        });
-                        dateSelect.disabled = false;
-                    } else {
-                        dateSelect.disabled = true;
-                    }
-
-                    timeSelect.disabled = true;
-                });
+            const service = this.value;
+            if (service) {
+                fetch(`/available-dates?service=${encodeURIComponent(service)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const dateSelect = document.getElementById('date');
+                        dateSelect.innerHTML = '<option value="">Select a date</option>';
+                        if (data.dates.length > 0) {
+                            data.dates.forEach(date => {
+                                dateSelect.innerHTML += `<option value="${date}">${date}</option>`;
+                            });
+                            dateSelect.disabled = false;
+                        } else {
+                            dateSelect.disabled = true;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching dates:', error);
+                    });
+            } else {
+                document.getElementById('date').innerHTML = '<option value="">Select a date</option>';
+                document.getElementById('date').disabled = true;
+                document.getElementById('time').innerHTML = '<option value="">Select a time</option>';
+                document.getElementById('time').disabled = true;
+            }
         });
 
         document.getElementById('date').addEventListener('change', function() {
-            // Fetch available times based on selected date
-            fetch('/available-times?date=' + encodeURIComponent(this.value))
-                .then(response => response.json())
-                .then(data => {
-                    const timeSelect = document.getElementById('time');
-
-                    timeSelect.innerHTML = '<option value="">Select a time</option>';
-
-                    if (data.times && data.times.length) {
-                        data.times.forEach(time => {
-                            timeSelect.innerHTML += `<option value="${time}">${time}</option>`;
-                        });
-                        timeSelect.disabled = false;
-                    } else {
-                        timeSelect.disabled = true;
-                    }
-                });
+            const date = this.value;
+            const service = document.getElementById('service').value;
+            if (date && service) {
+                fetch(`/available-times?date=${encodeURIComponent(date)}&service=${encodeURIComponent(service)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const timeSelect = document.getElementById('time');
+                        timeSelect.innerHTML = '<option value="">Select a time</option>';
+                        if (data.times.length > 0) {
+                            data.times.forEach(time => {
+                                timeSelect.innerHTML += `<option value="${time}">${time}</option>`;
+                            });
+                            timeSelect.disabled = false;
+                        } else {
+                            timeSelect.disabled = true;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching times:', error);
+                    });
+            } else {
+                document.getElementById('time').innerHTML = '<option value="">Select a time</option>';
+                document.getElementById('time').disabled = true;
+            }
         });
     </script>
 </body>
