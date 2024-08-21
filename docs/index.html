@@ -1,72 +1,113 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Detail Pro</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
 </head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <h1><a href="index.html">SD Detail Pro</a></h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="booking.html">Booking</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="homepage is-preload">
+    <div id="page-wrapper">
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <section id="welcome">
-            <h1>Welcome to SD Detail Pro!</h1>
-            <p>Your one-stop solution for premium car washing and detailing services.</p>
-            <div class="button-group">
-                <a href="services.html" class="button">Get Started</a>
-                <a href="contact.html" class="button">Learn More</a>
-            </div>
+        <!-- Header -->
+        <section id="header">
+            <h1><a href="index.html">SD Detail Pro</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                </ul>
+            </nav>
         </section>
 
-        <section id="services-summary">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h3>Basic Car Wash</h3>
-                    <p>Thorough cleaning of your vehicle’s exterior to remove dirt and grime.</p>
-                    <a href="services.html" class="button">Learn More</a>
+        <!-- Main -->
+        <section id="main">
+            <header>
+                <h2>Welcome to SD Detail Pro</h2>
+                <p>Your vehicle deserves the best care. We're here to provide it.</p>
+            </header>
+            <footer>
+                <ul class="actions">
+                    <li><a href="services.html" class="button big">Get Started</a></li>
+                    <li><a href="contact.html" class="button alt big">Learn More</a></li>
+                </ul>
+            </footer>
+        </section>
+
+        <!-- Highlights -->
+        <section id="highlights" class="container">
+            <div class="row aln-center">
+                <div class="col-4 col-12-medium">
+                    <section class="box">
+                        <i class="icon solid fa-car major"></i>
+                        <h3>Basic Car Wash</h3>
+                        <p>Thorough exterior cleaning for your vehicle.</p>
+                        <footer>
+                            <a href="services.html#basic" class="button alt">Learn More</a>
+                        </footer>
+                    </section>
                 </div>
-                <div class="service-item">
-                    <h3>Full Car Detailing</h3>
-                    <p>Comprehensive interior and exterior detailing to make your car look brand new.</p>
-                    <a href="services.html" class="button">Learn More</a>
+                <div class="col-4 col-12-medium">
+                    <section class="box">
+                        <i class="icon solid fa-broom major"></i>
+                        <h3>Full Car Detailing</h3>
+                        <p>Complete interior and exterior detailing services.</p>
+                        <footer>
+                            <a href="services.html#full" class="button alt">Learn More</a>
+                        </footer>
+                    </section>
                 </div>
             </div>
         </section>
 
-        <section id="news">
-            <h2>Upcoming News</h2>
-            <div class="news-item">
-                <h3>Car Cleaning Tips</h3>
-                <p>Posted 45 minutes ago</p>
-                <a href="https://calibercarwash.com/6-ways-to-keep-your-car-clean/" class="button">Read More</a>
-            </div>
-            <div class="news-item">
-                <h3>Exciting Updates</h3>
-                <p>Stay tuned for exciting updates and new services coming soon!</p>
+        <!-- News -->
+        <section id="news" class="container">
+            <header>
+                <h2>Upcoming News</h2>
+            </header>
+            <div class="row">
+                <div class="col-6 col-12-medium">
+                    <section class="box">
+                        <h3>Car Cleaning Tips</h3>
+                        <p>Posted 45 minutes ago</p>
+                        <footer>
+                            <a href="https://calibercarwash.com/6-ways-to-keep-your-car-clean/" class="button alt">Read More</a>
+                        </footer>
+                    </section>
+                </div>
+                <div class="col-6 col-12-medium">
+                    <section class="box">
+                        <h3>Exciting Updates</h3>
+                        <p>Stay tuned for exciting updates and new services coming soon!</p>
+                    </section>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
-    </footer>
+        <!-- Footer -->
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <section>
+                            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
 
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
 </body>
 </html>
