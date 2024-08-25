@@ -6,6 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Detail Pro</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Firebase setup script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
+            authDomain: "sd-detail-pro.firebaseapp.com",
+            projectId: "sd-detail-pro",
+            storageBucket: "sd-detail-pro.appspot.com",
+            messagingSenderId: "950327198258",
+            appId: "1:950327198258:web:1c5c749232c07783fef22b",
+            measurementId: "G-DQ1MX7K35F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Initialize Firebase Auth
+        const db = getFirestore(app); // Initialize Firestore
+
+        // Expose Firestore and Auth globally
+        window.auth = auth;
+        window.db = db;
+
+        // Export the Firestore and Auth objects
+        export { auth, db };
+    </script>
     <!-- Add any additional stylesheets or scripts here -->
 </head>
 
@@ -93,7 +122,7 @@
     <section id="booking">
         <div class="container">
             <h2>Book an Appointment</h2>
-            <form id="booking-form" action="path/to/your/booking-management-script" method="post" onsubmit="return validateBookingForm()">
+            <form id="booking-form" onsubmit="return submitBookingForm()">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
 
@@ -164,11 +193,40 @@
             return true;
         }
 
+        // Function to submit booking form
+        async function submitBookingForm() {
+            if (!validateBookingForm()) {
+                return false;
+            }
+
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                date: formData.get('date'),
+                time: formData.get('time'),
+                service: formData.get('service'),
+                timestamp: new Date()
+            };
+
+            try {
+                const bookingCollection = collection(db, 'bookings');
+                await addDoc(bookingCollection, data);
+                alert('Booking submitted successfully!');
+                form.reset();
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                alert('There was an error submitting your booking. Please try again.');
+            }
+            return false;
+        }
+
         // Function to handle service booking
         function bookService(serviceName) {
-            // Redirect to booking section with pre-filled service
             document.getElementById('service').value = serviceName;
-            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('booking').scrollIntoView();
         }
     </script>
 </body>
