@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Detail Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase setup script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
+            authDomain: "sd-detail-pro.firebaseapp.com",
+            projectId: "sd-detail-pro",
+            storageBucket: "sd-detail-pro.appspot.com",
+            messagingSenderId: "950327198258",
+            appId: "1:950327198258:web:1c5c749232c07783fef22b",
+            measurementId: "G-DQ1MX7K35F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Initialize Firebase Auth
+        const db = getFirestore(app); // Initialize Firestore
+
+        // Expose Firestore and Auth globally
+        window.auth = auth;
+        window.db = db;
+
+        // Export the Firestore and Auth objects
+        export { auth, db };
+    </script>
+    <!-- Add any additional stylesheets or scripts here -->
+</head>
+
+<body>
+    <!-- Main Screen (Hero Section) -->
+    <header id="hero">
+        <div class="hero-content">
+            <h1>Welcome to SD Detail Pro</h1>
+            <p>Expert Car Detailing Services in Chula Vista, CA</p>
+            <a href="#booking" class="cta-button">Book Now</a>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#booking">Booking</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Welcome to SD Detail Pro, where we offer top-notch car detailing services to keep your vehicle looking its best. Our team of professionals is dedicated to providing exceptional service with attention to detail. Located in Chula Vista, CA, we pride ourselves on quality and customer satisfaction.</p>
+            <p>Our services include comprehensive car washes, detailing, and more. We use high-quality products to ensure your car shines and remains protected.</p>
+            <div class="team">
+                <h3>Meet Our Team</h3>
+                <div class="team-member">
+                    <img src="team1.jpg" alt="Team Member 1">
+                    <p><strong>John Doe</strong> - Head Detailer</p>
+                </div>
+                <div class="team-member">
+                    <img src="team2.jpg" alt="Team Member 2">
+                    <p><strong>Jane Smith</strong> - Detail Specialist</p>
+                </div>
+                <!-- Add more team members as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service">
+                <h3>Basic Car Wash</h3>
+                <p>A thorough wash of your vehicle's exterior to remove dirt and grime. Includes a hand wash, rinse, and drying.</p>
+                <p class="price">$25</p>
+                <button class="cta-button" onclick="bookService('Basic Car Wash')">Book Now</button>
+            </div>
+            <div class="service">
+                <h3>Full Car Detailing</h3>
+                <p>Comprehensive detailing service that includes interior cleaning, exterior wash, waxing, and polishing.</p>
+                <p class="price">$150</p>
+                <button class="cta-button" onclick="bookService('Full Car Detailing')">Book Now</button>
+            </div>
+            <div class="service">
+                <h3>Interior Detailing</h3>
+                <p>Deep cleaning of your vehicle's interior, including vacuuming, upholstery cleaning, and dashboard polishing.</p>
+                <p class="price">$100</p>
+                <button class="cta-button" onclick="bookService('Interior Detailing')">Book Now</button>
+            </div>
+            <div class="service">
+                <h3>Exterior Detailing</h3>
+                <p>Extensive exterior treatment including paint correction, waxing, and sealant application for a long-lasting shine.</p>
+                <p class="price">$175</p>
+                <button class="cta-button" onclick="bookService('Exterior Detailing')">Book Now</button>
+            </div>
+            <div class="service">
+                <h3>Engine Bay Cleaning</h3>
+                <p>Thorough cleaning and degreasing of your engine bay to keep it looking like new.</p>
+                <p class="price">$75</p>
+                <button class="cta-button" onclick="bookService('Engine Bay Cleaning')">Book Now</button>
+            </div>
+            <!-- Add more services as needed -->
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking">
+        <div class="container">
+            <h2>Book an Appointment</h2>
+            <form id="booking-form" onsubmit="return submitBookingForm()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Preferred Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <label for="service">Service Required:</label>
+                <select id="service" name="service" required>
+                    <option value="basic-car-wash">Basic Car Wash</option>
+                    <option value="full-car-detailing">Full Car Detailing</option>
+                    <option value="interior-detailing">Interior Detailing</option>
+                    <option value="exterior-detailing">Exterior Detailing</option>
+                    <option value="engine-bay-cleaning">Engine Bay Cleaning</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <button type="submit" class="cta-button">Submit Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact-us">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Have questions or need more information? Reach out to us using the details below:</p>
+            <address>
+                <p>Phone: <a href="tel:+16196328463">(619) 632-8463</a></p>
+                <p>Email: <a href="mailto:sddetailpro@gmail.com">sddetailpro@gmail.com</a></p>
+                <p>Address: Located in Chula Vista, CA 91915</p>
+                <p>Follow us on Instagram: <a href="https://instagram.com/sd.detailpro" target="_blank">@sd.detailpro</a></p>
+            </address>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Inline JavaScript -->
+    <script>
+        // Function to validate booking form
+        function validateBookingForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const service = document.getElementById('service').value;
+
+            // Simple validation
+            if (!name || !email || !phone || !date || !time || !service) {
+                alert('Please fill in all required fields.');
+                return false;
+            }
+            return true;
+        }
+
+        // Function to submit booking form
+        async function submitBookingForm() {
+            if (!validateBookingForm()) {
+                return false;
+            }
+
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                date: formData.get('date'),
+                time: formData.get('time'),
+                service: formData.get('service'),
+                timestamp: new Date()
+            };
+
+            try {
+                const bookingCollection = collection(db, 'bookings');
+                await addDoc(bookingCollection, data);
+                alert('Booking submitted successfully!');
+                form.reset();
+            } catch (error) {
+                console.error('Error submitting booking:', error);
+                alert('There was an error submitting your booking. Please try again.');
+            }
+            return false;
+        }
+
+        // Function to handle service booking
+        function bookService(serviceName) {
+            document.getElementById('service').value = serviceName;
+            document.getElementById('booking').scrollIntoView();
+        }
+    </script>
+</body>
+
+</html>
