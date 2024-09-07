@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Detail Pro</title>
-    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-</head>
+    <!-- Firebase setup script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js";
 
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD1dRaAh9mTnHTcAu03ZDyr4sc_dS0yBt0",
+            authDomain: "sd-detail-pro.firebaseapp.com",
+            projectId: "sd-detail-pro",
+            storageBucket: "sd-detail-pro.appspot.com",
+            messagingSenderId: "950327198258",
+            appId: "1:950327198258:web:1c5c749232c07783fef22b",
+            measurementId: "G-DQ1MX7K35F"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app); // Initialize Firebase Auth
+        const db = getFirestore(app); // Initialize Firestore
+
+        // Expose Firestore and Auth globally
+        window.auth = auth;
+        window.db = db;
+
+        // Export the Firestore and Auth objects
+        export { auth, db };
+    </script>
+</head>
 <body>
-    <!-- Main Screen (Hero Section) -->
     <header id="hero">
         <div class="hero-content">
             <h1>Welcome to SD Detail Pro</h1>
@@ -21,7 +44,6 @@
         </div>
     </header>
 
-    <!-- Navigation Bar -->
     <nav id="navbar">
         <ul>
             <li><a href="#hero">Home</a></li>
@@ -32,7 +54,6 @@
         </ul>
     </nav>
 
-    <!-- About Us Section -->
     <section id="about-us">
         <div class="container">
             <h2>About Us</h2>
@@ -40,20 +61,18 @@
             <p>Our services include comprehensive car washes, detailing, and more. We use high-quality products to ensure your car shines and remains protected.</p>
             <div class="team">
                 <h3>Meet Our Team</h3>
-                <!-- Images -->
                 <div class="team-member">
-                    <img src="assets/images/gallery/pic01.jpg" alt="Team Member 1">
+                    <img src="assets/images/team1.jpg" alt="Team Member 1">
                     <p><strong>John Doe</strong> - Head Detailer</p>
                 </div>
                 <div class="team-member">
-                    <img src="assets/images/gallery/pic02.jpg" alt="Team Member 2">
+                    <img src="assets/images/team2.jpg" alt="Team Member 2">
                     <p><strong>Jane Smith</strong> - Detail Specialist</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
     <section id="services">
         <div class="container">
             <h2>Our Services</h2>
@@ -90,7 +109,6 @@
         </div>
     </section>
 
-    <!-- Booking Section -->
     <section id="booking">
         <div class="container">
             <h2>Book an Appointment</h2>
@@ -119,62 +137,30 @@
                     <option value="engine-bay-cleaning">Engine Bay Cleaning</option>
                 </select>
 
-                <button type="submit">Submit Booking</button>
+                <button type="submit" class="cta-button">Submit Booking</button>
             </form>
         </div>
     </section>
 
-    <!-- Contact Us Section -->
     <section id="contact-us">
         <div class="container">
             <h2>Contact Us</h2>
-            <p>For more information or to get in touch with us, please use the contact details below:</p>
-            <p><strong>Phone:</strong> (619) 632-8463</p>
-            <p><strong>Address:</strong> Located in Chula Vista, CA 91915</p>
-            <p><strong>Email:</strong> <a href="mailto:sddetailpro@gmail.com">sddetailpro@gmail.com</a></p>
-            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/sd.detailpro" target="_blank">@sd.detailpro</a></p>
+            <p>Have questions or need more information? Reach out to us using the details below:</p>
+            <address>
+                <p>Phone: <a href="tel:+16196328463">(619) 632-8463</a></p>
+                <p>Email: <a href="mailto:sddetailpro@gmail.com">sddetailpro@gmail.com</a></p>
+                <p>Address: Located in Chula Vista, CA 91915</p>
+                <p>Follow us on Instagram: <a href="https://instagram.com/sd.detailpro" target="_blank">@sd.detailpro</a></p>
+            </address>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2024 SD Detail Pro. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JS -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-    <!-- Booking Management -->
-    <script src="assets/js/booking-management.js"></script>
-    <script>
-        // Function to validate the booking form
-        function validateBookingForm() {
-            // Implement validation logic here
-            return true;
-        }
-
-        // Function to handle form submission
-        function submitBookingForm() {
-            if (validateBookingForm()) {
-                // Handle form submission logic here
-                alert('Your booking has been submitted!');
-                return false; // Prevent actual form submission for demo purposes
-            }
-            return false;
-        }
-
-        // Function to handle service booking
-        function bookService(serviceName) {
-            alert('Booking for ' + serviceName + ' will be submitted!');
-            // Add service booking logic here
-        }
-    </script>
 </body>
-
 </html>
