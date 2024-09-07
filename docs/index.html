@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Detail Pro</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Updated link to styles.css -->
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Firebase setup script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
@@ -31,11 +32,7 @@
         // Expose Firestore and Auth globally
         window.auth = auth;
         window.db = db;
-
-        // Export the Firestore and Auth objects
-        export { auth, db };
     </script>
-    <!-- Add any additional stylesheets or scripts here -->
 </head>
 
 <body>
@@ -67,15 +64,15 @@
             <p>Our services include comprehensive car washes, detailing, and more. We use high-quality products to ensure your car shines and remains protected.</p>
             <div class="team">
                 <h3>Meet Our Team</h3>
+                <!-- Updated paths to images -->
                 <div class="team-member">
-                    <img src="team1.jpg" alt="Team Member 1">
+                    <img src="assets/images/team1.jpg" alt="Team Member 1">
                     <p><strong>John Doe</strong> - Head Detailer</p>
                 </div>
                 <div class="team-member">
-                    <img src="team2.jpg" alt="Team Member 2">
+                    <img src="assets/images/team2.jpg" alt="Team Member 2">
                     <p><strong>Jane Smith</strong> - Detail Specialist</p>
                 </div>
-                <!-- Add more team members as needed -->
             </div>
         </div>
     </section>
@@ -114,7 +111,6 @@
                 <p class="price">$75</p>
                 <button class="cta-button" onclick="bookService('Engine Bay Cleaning')">Book Now</button>
             </div>
-            <!-- Add more services as needed -->
         </div>
     </section>
 
@@ -145,7 +141,6 @@
                     <option value="interior-detailing">Interior Detailing</option>
                     <option value="exterior-detailing">Exterior Detailing</option>
                     <option value="engine-bay-cleaning">Engine Bay Cleaning</option>
-                    <!-- Add more options as needed -->
                 </select>
 
                 <button type="submit" class="cta-button">Submit Booking</button>
@@ -174,7 +169,9 @@
         </div>
     </footer>
 
-    <!-- Inline JavaScript -->
+    <!-- Updated paths to JavaScript files -->
+    <script src="assets/js/booking-management.js"></script>
+    <script src="assets/js/firebase-setup.js"></script>
     <script>
         // Function to validate booking form
         function validateBookingForm() {
@@ -185,7 +182,6 @@
             const time = document.getElementById('time').value;
             const service = document.getElementById('service').value;
 
-            // Simple validation
             if (!name || !email || !phone || !date || !time || !service) {
                 alert('Please fill in all required fields.');
                 return false;
@@ -193,42 +189,3 @@
             return true;
         }
 
-        // Function to submit booking form
-        async function submitBookingForm() {
-            if (!validateBookingForm()) {
-                return false;
-            }
-
-            const form = document.getElementById('booking-form');
-            const formData = new FormData(form);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                date: formData.get('date'),
-                time: formData.get('time'),
-                service: formData.get('service'),
-                timestamp: new Date()
-            };
-
-            try {
-                const bookingCollection = collection(db, 'bookings');
-                await addDoc(bookingCollection, data);
-                alert('Booking submitted successfully!');
-                form.reset();
-            } catch (error) {
-                console.error('Error submitting booking:', error);
-                alert('There was an error submitting your booking. Please try again.');
-            }
-            return false;
-        }
-
-        // Function to handle service booking
-        function bookService(serviceName) {
-            document.getElementById('service').value = serviceName;
-            document.getElementById('booking').scrollIntoView();
-        }
-    </script>
-</body>
-
-</html>
